@@ -1,0 +1,648 @@
+fileFormatVersion: 2
+guid: 6d99c5461ae69764e9d17bc75ea22ef6
+timeCreated: 1474265809
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: _M3_Anim_Data
+    100002: Bone
+    100004: Bone Head
+    100006: Bone L Calf
+    100008: Bone L Foot
+    100010: Bone L Forearm
+    100012: Bone L Thigh
+    100014: Bone L UpperArm
+    100016: Bone Neck
+    100018: Bone Pelvis
+    100020: Bone R Calf
+    100022: Bone R Foot
+    100024: Bone R Forearm
+    100026: Bone R Hand
+    100028: Bone R Thigh
+    100030: Bone R UpperArm
+    100032: Bone Spine
+    100034: bone_new0
+    100036: bone_new1
+    100038: bone_new2
+    100040: bone_new3
+    100042: bone_t
+    100044: Chest Ref
+    100046: 'Foot Left Ref '
+    100048: 'Foot Right Ref '
+    100050: 'Hand Left Ref '
+    100052: 'Hand Right Ref '
+    100054: Head Ref
+    100056: m3bone_root
+    100058: 'Origin Ref '
+    100060: 'OverHead Ref '
+    100062: //RootNode
+    100064: sanae1
+    100066: sanae2
+    100068: skirt_b
+    100070: skirt_f
+    100072: skirt_l
+    100074: skirt_r
+    100076: skirt_up_b
+    100078: skirt_up_f
+    100080: weapon
+    100082: Weapon Ref
+    400000: _M3_Anim_Data
+    400002: Bone
+    400004: Bone Head
+    400006: Bone L Calf
+    400008: Bone L Foot
+    400010: Bone L Forearm
+    400012: Bone L Thigh
+    400014: Bone L UpperArm
+    400016: Bone Neck
+    400018: Bone Pelvis
+    400020: Bone R Calf
+    400022: Bone R Foot
+    400024: Bone R Forearm
+    400026: Bone R Hand
+    400028: Bone R Thigh
+    400030: Bone R UpperArm
+    400032: Bone Spine
+    400034: bone_new0
+    400036: bone_new1
+    400038: bone_new2
+    400040: bone_new3
+    400042: bone_t
+    400044: Chest Ref
+    400046: 'Foot Left Ref '
+    400048: 'Foot Right Ref '
+    400050: 'Hand Left Ref '
+    400052: 'Hand Right Ref '
+    400054: Head Ref
+    400056: m3bone_root
+    400058: 'Origin Ref '
+    400060: 'OverHead Ref '
+    400062: //RootNode
+    400064: sanae1
+    400066: sanae2
+    400068: skirt_b
+    400070: skirt_f
+    400072: skirt_l
+    400074: skirt_r
+    400076: skirt_up_b
+    400078: skirt_up_f
+    400080: weapon
+    400082: Weapon Ref
+    4300000: sanae1
+    4300002: sanae2
+    7400000: Stand
+    7400002: Attack
+    7400004: Spell
+    7400006: Walk
+    9500000: //RootNode
+    13700000: sanae1
+    13700002: sanae2
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Stand
+      takeName: Take 001
+      firstFrame: 10
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _M3_Anim_Data
+        weight: 1
+      - path: m3bone_root
+        weight: 1
+      - path: m3bone_root/Bone
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot/Foot Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new2
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new3
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/Hand
+          Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new0
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new1
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/Head Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot/Foot Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/Hand Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon/Weapon Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Chest Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_l
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_r
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b/skirt_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f/skirt_f
+        weight: 1
+      - path: 'm3bone_root/Origin Ref '
+        weight: 1
+      - path: 'm3bone_root/OverHead Ref '
+        weight: 1
+      - path: sanae1
+        weight: 1
+      - path: sanae2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _M3_Anim_Data
+        weight: 1
+      - path: m3bone_root
+        weight: 1
+      - path: m3bone_root/Bone
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot/Foot Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new2
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new3
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/Hand
+          Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new0
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new1
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/Head Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot/Foot Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/Hand Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon/Weapon Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Chest Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_l
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_r
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b/skirt_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f/skirt_f
+        weight: 1
+      - path: 'm3bone_root/Origin Ref '
+        weight: 1
+      - path: 'm3bone_root/OverHead Ref '
+        weight: 1
+      - path: sanae1
+        weight: 1
+      - path: sanae2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Spell
+      takeName: Take 001
+      firstFrame: 135
+      lastFrame: 213
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _M3_Anim_Data
+        weight: 1
+      - path: m3bone_root
+        weight: 1
+      - path: m3bone_root/Bone
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot/Foot Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new2
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new3
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/Hand
+          Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new0
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new1
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/Head Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot/Foot Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/Hand Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon/Weapon Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Chest Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_l
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_r
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b/skirt_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f/skirt_f
+        weight: 1
+      - path: 'm3bone_root/Origin Ref '
+        weight: 1
+      - path: 'm3bone_root/OverHead Ref '
+        weight: 1
+      - path: sanae1
+        weight: 1
+      - path: sanae2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 230
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _M3_Anim_Data
+        weight: 1
+      - path: m3bone_root
+        weight: 1
+      - path: m3bone_root/Bone
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L Thigh/Bone L Calf/Bone
+          L Foot/Foot Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new2
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/bone_new3
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone L UpperArm/Bone L Forearm/Hand
+          Left Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new0
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/bone_t/bone_new1
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone Neck/Bone Head/Head Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R Thigh/Bone R Calf/Bone
+          R Foot/Foot Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand
+        weight: 1
+      - path: 'm3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/Hand Right Ref '
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Bone R UpperArm/Bone R Forearm/Bone
+          R Hand/weapon/Weapon Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/Bone Spine/Chest Ref
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_l
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_r
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_b/skirt_b
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f
+        weight: 1
+      - path: m3bone_root/Bone/Bone Pelvis/skirt_up_f/skirt_f
+        weight: 1
+      - path: 'm3bone_root/Origin Ref '
+        weight: 1
+      - path: 'm3bone_root/OverHead Ref '
+        weight: 1
+      - path: sanae1
+        weight: 1
+      - path: sanae2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
