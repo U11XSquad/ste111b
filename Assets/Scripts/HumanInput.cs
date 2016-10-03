@@ -25,6 +25,9 @@ public class HumanInput : InputCtrl
     // Update is called once per frame
     void Update()
     {
+        if (!isLocalPlayer)
+            return;
+
         //获取按键信息
         LeftHold = Input.GetButton("Left");
         RightHold = Input.GetButton("Right");
