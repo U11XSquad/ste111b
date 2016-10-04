@@ -43,19 +43,25 @@ public class HumanInput : InputCtrl
         SHold = Input.GetButton("S");
         STrigger = Input.GetButtonDown("S");
 
+        BlockHold = Input.GetButton("Block");
+        BlockTrigger = Input.GetButtonDown("Block");
+
         //修正移动值
         AdjustMove();
     }
 
     void AdjustMove()
     {
+        IsMoving = false;
         if (LeftHold && !RightHold)
         {
             moveDir.x = -1.0f;
+            IsMoving = true;
         }
         else if (RightHold && !LeftHold)
         {
             moveDir.x = 1.0f;
+            IsMoving = true;
         }
         else
         {
@@ -64,10 +70,12 @@ public class HumanInput : InputCtrl
         if (UpHold && !DownHold)
         {
             moveDir.y = 1.0f;
+            IsMoving = true;
         }
         else if (DownHold && !UpHold)
         {
             moveDir.y = -1.0f;
+            IsMoving = true;
         }
         else
         {

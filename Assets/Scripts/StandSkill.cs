@@ -10,8 +10,10 @@ public class StandSkill : Skill
 
     public override void SkillStart(bool isServer)
     {
+        base.SkillStart(isServer);
+        phase = SkillPhase.Recovery;
+
         var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
         animator.SetBool("walking", false);
-        Debug.Log(isServer);
     }
 }

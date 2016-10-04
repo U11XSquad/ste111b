@@ -6,6 +6,7 @@ public class Skill : MonoBehaviour
     /// <summary>
     /// 技能编号
     /// </summary>
+    [Tooltip("动态分配")]
     public int SkillNo;
 
     /// <summary>
@@ -13,20 +14,95 @@ public class Skill : MonoBehaviour
     /// </summary>
     protected GameObject player;
 
+    /// <summary>
+    /// player的输入组件
+    /// </summary>
     protected InputCtrl input;
 
     /// <summary>
     /// 取消等级，A > B时A可以打断B
     /// </summary>
-    public int InterruptLevel;
+    public int InterruptPriority = 0;
 
-    //暂定
+    /// <summary>
+    /// 是否允许通常打断，即高等级取消低等级
+    /// </summary>
+    /// <remarks>
+    /// 1.注意出招取消无法被禁止
+    /// 2.通常打断遵循后摇取消规则，即动作中激发的最后一个技能延迟到后摇阶段开始时打断
+    /// </remarks>
+    public bool GenericInterruptable = true;
+
+    /// <summary>
+    /// 技能的施放状态
+    /// </summary>
     public enum SkillStatus
     {
         Disable = 0,
         Inactive = 1,
         Active = 2
     }
+    public SkillStatus status = SkillStatus.Inactive;
+
+    /// <summary>
+    /// 这里是技能的施放阶段
+    /// </summary>
+    public enum SkillPhase
+    {
+        /// <summary>
+        /// 技能未释放，阶段无意义
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// 发生阶段
+        /// </summary>
+        Startup = 1,
+
+        /// <summary>
+        /// 判定阶段
+        /// </summary>
+        Active = 2,
+
+        /// <summary>
+        /// 收招阶段
+        /// </summary>
+        Recovery = 3
+    }
+    [Tooltip("动态分配")]
+    public SkillPhase phase = SkillPhase.None;
+
+    /// <summary>
+    /// 技能作为防御方的种类
+    /// </summary>
+    public enum SkillType
+    {
+        /// <summary>
+        /// 无防御
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// 打击技
+        /// </summary>
+        Hit = 1,
+
+        /// <summary>
+        /// 防御破坏技
+        /// </summary>
+        Break = 2,
+
+        /// <summary>
+        /// 当身技
+        /// </summary>
+        Block = 3,
+
+        /// <summary>
+        /// 远程技（弹幕）
+        /// </summary>
+        Project = 4,
+    }
+    public SkillType skillType = SkillType.None;
 
     virtual protected void Awake()
     {
@@ -67,5 +143,17 @@ public class Skill : MonoBehaviour
     /// <param name="isServer">是否是服务器调用</param>
     virtual public void SkillStart(bool isServer)
     {
+        status = SkillStatus.Active;
+        phase = SkillPhase.Startup;
+    }
+
+    /// <summary>
+    /// 技能被打断，正常终止不算
+    /// </summary>
+    /// <param name="isServer">是否是服务器调用</param>
+    virtual public void SkillBreak(bool isServer)
+    {
+        status = SkillStatus.Inactive;
+        phase = SkillPhase.None;
     }
 }

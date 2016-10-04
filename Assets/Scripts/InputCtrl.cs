@@ -30,6 +30,11 @@ public abstract class InputCtrl : NetworkBehaviour
         get;
         protected set;
     }
+    public bool IsMoving
+    {
+        get;
+        protected set;
+    }
 
     public bool LHold
     {
@@ -67,6 +72,16 @@ public abstract class InputCtrl : NetworkBehaviour
         protected set;
     }
     public bool STrigger
+    {
+        get;
+        protected set;
+    }
+    public bool BlockHold
+    {
+        get;
+        protected set;
+    }
+    public bool BlockTrigger
     {
         get;
         protected set;
