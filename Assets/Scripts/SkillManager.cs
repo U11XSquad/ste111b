@@ -28,6 +28,9 @@ public class SkillManager : NetworkBehaviour
     /// </summary>
     public Skill nextSkill = null;
 
+    /// <summary>
+    /// 技能释放完或任何有必要的时候回站立状态，不需要服务器统一控制
+    /// </summary>
     void ReturnToStand()
     {
         current = skills[0];
@@ -35,13 +38,18 @@ public class SkillManager : NetworkBehaviour
         nextSkill = null;
     }
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < skills.Length; i++)
         {
             skills[i].SkillNo = i;
+            skills[i].manager = this;
         }
+    }
+
+    // Use this for initialization
+    void Start()
+    {
         ReturnToStand();
     }
 
@@ -60,6 +68,12 @@ public class SkillManager : NetworkBehaviour
             ReturnToStand();
         }
 
+        //非本地玩家不进行检测、打断和取消
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         //技能输入检测
         foreach (Skill skill in skills)
         {
@@ -69,6 +83,12 @@ public class SkillManager : NetworkBehaviour
             {
                 nextSkill = skill;
             }
+        }
+
+        //技能自发结束
+        if (current.status != Skill.SkillStatus.Active)
+        {
+            ReturnToStand();
         }
 
         //技能通常打断
@@ -83,17 +103,37 @@ public class SkillManager : NetworkBehaviour
         //TODO
     }
 
+    /// <summary>
+    /// 打断当前技能，施放新技能
+    /// </summary>
+    /// <param name="skillNo">新技能编号</param>
     [Command]
     public void CmdCast(int skillNo)
     {
         RpcSkillStart(skillNo);
     }
-
     [ClientRpc]
     void RpcSkillStart(int skillNo)
     {
+        //中断当前技能
         current.SkillBreak(isServer);
         current = skills[skillNo];
+        //开始新技能
         current.SkillStart(isServer);
+        //撤销下一个技能
+        nextSkill = null;
+    }
+
+    /// <summary>
+    /// 取消当前技能，同时通知其他的客户端取消
+    /// </summary>
+    /// <remarks>
+    /// 限定于有按键检测的技能因特殊按键而停止
+    /// 如果是技能自发终止建议直接改status
+    /// </remarks>
+    public void SkillCancel()
+    {
+        //一般取消直接用Stand取消
+        CmdCast(0);
     }
 }

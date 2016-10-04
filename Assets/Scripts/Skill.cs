@@ -6,7 +6,7 @@ public class Skill : MonoBehaviour
     /// <summary>
     /// 技能编号
     /// </summary>
-    [Tooltip("动态分配")]
+    [Tooltip("动态分配不需填写")]
     public int SkillNo;
 
     /// <summary>
@@ -69,8 +69,11 @@ public class Skill : MonoBehaviour
         /// </summary>
         Recovery = 3
     }
-    [Tooltip("动态分配")]
+    [Tooltip("动态分配不需填写")]
     public SkillPhase phase = SkillPhase.None;
+
+    [Tooltip("动态分配不需填写")]
+    public SkillManager manager = null;
 
     /// <summary>
     /// 技能作为防御方的种类
@@ -101,6 +104,11 @@ public class Skill : MonoBehaviour
         /// 远程技（弹幕）
         /// </summary>
         Project = 4,
+
+        /// <summary>
+        /// 免疫
+        /// </summary>
+        Immune = 5,
     }
     public SkillType skillType = SkillType.None;
 
@@ -148,12 +156,50 @@ public class Skill : MonoBehaviour
     }
 
     /// <summary>
-    /// 技能被打断，正常终止不算
+    /// 技能被打断时调用
+    /// 如果是靠手动修改status终止技能则不调用
     /// </summary>
     /// <param name="isServer">是否是服务器调用</param>
     virtual public void SkillBreak(bool isServer)
     {
         status = SkillStatus.Inactive;
         phase = SkillPhase.None;
+    }
+
+    /// <summary>
+    /// 技能发动中的受击事件
+    /// 判断应当以什么方式计算伤害和硬直
+    /// </summary>
+    /// <param name="isServer">是否是服务器调用</param>
+    /// <param name="hitBox">伤害的判定体</param>
+    /// <returns>伤害计算方式</returns>
+    /// <remarks>大部分情况可以靠调整skillType解决，并不需要改重载这个函数</remarks>
+    virtual public SkillType OnHit(bool isServer, GameObject hitBox)
+    {
+        if (skillType == SkillType.Block && phase != SkillPhase.Active)
+        {
+            //一般当身技的前后摇中不计入防御
+            return SkillType.None;
+        }
+        else
+        {
+            //否则按照技能标准的伤害计算来处理
+            return skillType;
+        }
+    }
+
+    /// <summary>
+    /// 当身技防御成功时的处理
+    /// </summary>
+    /// <param name="isServer">是否是服务器调用</param>
+    /// <param name="opponent">对方角色</param>
+    /// <returns>
+    /// 是否仍然计算伤害
+    /// 1 -> 按防御状态计算伤害
+    /// 0 -> 抵抗此次伤害
+    /// </returns>
+    virtual public bool BlockSucceed(bool isServer, GameObject opponent)
+    {
+        return true;
     }
 }

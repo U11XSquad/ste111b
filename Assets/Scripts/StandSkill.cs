@@ -12,8 +12,6 @@ public class StandSkill : Skill
     {
         base.SkillStart(isServer);
         phase = SkillPhase.Recovery;
-
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
-        animator.SetBool("walking", false);
+        //var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
     }
 }

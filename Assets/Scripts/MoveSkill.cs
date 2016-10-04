@@ -32,6 +32,11 @@ public class MoveSkill : Skill
         base.Process(isServer);
 
         var playerGeneric = player.GetComponent<PlayerGeneric>();
+        if (!playerGeneric.isLocalPlayer)
+        {
+            return; //非本地玩家不检测输入
+        }
+
         if (input.IsMoving)
         {
             //转向
@@ -41,7 +46,7 @@ public class MoveSkill : Skill
         }
         else
         {
-            SkillBreak(isServer);
+            manager.SkillCancel();
         }
     }
 }
