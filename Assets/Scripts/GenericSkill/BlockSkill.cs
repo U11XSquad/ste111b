@@ -52,7 +52,7 @@ public class BlockSkill : Skill
         return SkillType.Block;
     }
 
-    public override bool BlockSucceed(bool isServer, GameObject opponent)
+    public override bool BlockSucceed(bool isServer, HitBox hitBox)
     {
         //按防御计算伤害
         return true;

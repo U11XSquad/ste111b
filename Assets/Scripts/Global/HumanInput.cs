@@ -16,14 +16,20 @@ public class HumanInput : InputCtrl
         }
     }
 
-    // Use this for initialization
     void Start()
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void GetKeyState(string keyName, ref bool hold, ref bool down)
+    {
+        //因为GetButtonDown是给Update用的，所以FixedUpdate不准
+        var holdNow = Input.GetButton(keyName);
+        down = !hold && holdNow;
+        hold = holdNow;
+    }
+
+    void FixedUpdate()
     {
         if (!isLocalPlayer)
             return;
@@ -34,17 +40,11 @@ public class HumanInput : InputCtrl
         UpHold = Input.GetButton("Up");
         DownHold = Input.GetButton("Down");
 
-        LHold = Input.GetButton("L");
-        LTrigger = Input.GetButtonDown("L");
-        NHold = Input.GetButton("N");
-        NTrigger = Input.GetButtonDown("N");
-        HHold = Input.GetButton("H");
-        HTrigger = Input.GetButtonDown("H");
-        SHold = Input.GetButton("S");
-        STrigger = Input.GetButtonDown("S");
-
-        BlockHold = Input.GetButton("Block");
-        BlockTrigger = Input.GetButtonDown("Block");
+        GetKeyState("L", ref lhold, ref ltrigger);
+        GetKeyState("N", ref nhold, ref ntrigger);
+        GetKeyState("H", ref hhold, ref htrigger);
+        GetKeyState("S", ref shold, ref strigger);
+        GetKeyState("Block", ref bhold, ref btrigger);
 
         //修正移动值
         AdjustMove();
@@ -69,18 +69,18 @@ public class HumanInput : InputCtrl
         }
         if (UpHold && !DownHold)
         {
-            moveDir.y = 1.0f;
+            moveDir.z = 1.0f;
             IsMoving = true;
         }
         else if (DownHold && !UpHold)
         {
-            moveDir.y = -1.0f;
+            moveDir.z = -1.0f;
             IsMoving = true;
         }
         else
         {
-            moveDir.y = 0.0f;
+            moveDir.z = 0.0f;
         }
-        moveDir.z = 0.0f;
+        moveDir.y = 0.0f;
     }
 }

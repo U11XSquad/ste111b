@@ -3,7 +3,11 @@ using System.Collections;
 
 public class MoveSkill : Skill
 {
+    [Tooltip("最大移速，单位m/s^2")]
     public float MoveSpeed = 5.0f;
+
+    [Tooltip("最大主动加速度，单位m/s^2")]
+    public float MaxAccelerate = 60.0f;
 
     public override bool InputDetermine()
     {
@@ -42,11 +46,27 @@ public class MoveSkill : Skill
             //转向
             playerGeneric.FaceTo(input.Move);
             //移动
-            playerGeneric.transform.Translate(Vector3.forward * MoveSpeed * Time.fixedDeltaTime);
+            DealMove();
         }
         else
         {
             manager.SkillCancel();
         }
+    }
+
+    void DealMove()
+    {
+        var rigid = player.GetComponent<Rigidbody>();
+        var velocity = rigid.velocity;
+        var moveDir = input.Move;
+        moveDir.Normalize();
+        moveDir = moveDir * MoveSpeed;
+        var velDiff = moveDir - velocity;
+        var accLength = velDiff.magnitude;
+        var maxAcc = MaxAccelerate * Time.fixedDeltaTime;
+        accLength = Mathf.Clamp(accLength, -maxAcc, maxAcc);
+        velDiff.Normalize();
+        velDiff *= accLength;
+        rigid.AddForce(velDiff, ForceMode.VelocityChange);
     }
 }
