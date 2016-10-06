@@ -8,7 +8,7 @@ public class DivineShooterHitBox : HitBox
     void Start()
     {
         var rigid = GetComponent<Rigidbody>();
-        rigid.AddForce(Vector3.forward, ForceMode.VelocityChange);
+        rigid.AddForce(transform.forward, ForceMode.VelocityChange);
     }
 
 }

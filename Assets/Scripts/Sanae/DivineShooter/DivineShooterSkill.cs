@@ -29,8 +29,10 @@ public class DivineShooterSkill : Skill
         phase = SkillPhase.Active;
         if (server)
         {
-            var bullet = (GameObject)Instantiate(bulletPrefab);
-            //此处不可设置Rigidbody受力，应在HitBox的Start中设定
+            var pos = player.transform.position + player.transform.forward * 0.5f;
+            var bullet = (GameObject)Instantiate(bulletPrefab, pos, player.transform.rotation);
+            //注：此处不可设置Rigidbody受力，应在HitBox的Start中设定
+            bullet.GetComponent<HitBox>().player = player.GetComponent<NetworkIdentity>();
             NetworkServer.Spawn(bullet);
         }
         Invoke("DoRecover", 0.1f);

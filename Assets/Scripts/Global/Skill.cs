@@ -10,6 +10,11 @@ public class Skill : MonoBehaviour
     public int SkillNo;
 
     /// <summary>
+    /// 是否无条件进行技能触发检查
+    /// </summary>
+    public bool AlwaysCheckInput = false;
+
+    /// <summary>
     /// 拥有该技能的当前玩家
     /// </summary>
     protected GameObject player;

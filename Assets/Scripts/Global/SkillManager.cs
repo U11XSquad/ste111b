@@ -19,21 +19,50 @@ public class SkillManager : NetworkBehaviour
     public Skill[] skills;
 
     /// <summary>
+    /// 通常站立技
+    /// </summary>
+    public Skill standSkill;
+    /// <summary>
+    /// 通常防御技
+    /// </summary>
+    public Skill blockSkill;
+    /// <summary>
+    /// 通常受伤
+    /// </summary>
+    public Skill hurtSkill;
+
+    /// <summary>
     /// 当前施放的技能
     /// </summary>
-    public Skill current = null;
+    public Skill current { get; set; }
 
     /// <summary>
     /// 后摇取消后接的技能，参见<seealso cref="Skill.GenericInterruptable"/>
     /// </summary>
-    public Skill nextSkill = null;
+    public Skill nextSkill { get; set; }
+
+    /// <summary>
+    /// 硬直时间
+    /// </summary>
+    public float stunTime { get; set; }
+
+    /// <summary>
+    /// 是否处于硬直中
+    /// </summary>
+    public bool isInStun
+    {
+        get
+        {
+            return stunTime >= Mathf.Epsilon;
+        }
+    }
 
     /// <summary>
     /// 技能释放完或任何有必要的时候回站立状态，不需要服务器统一控制
     /// </summary>
     void ReturnToStand()
     {
-        current = skills[0];
+        current = standSkill;
         current.SkillStart(isServer);
         nextSkill = null;
     }
@@ -45,6 +74,9 @@ public class SkillManager : NetworkBehaviour
             skills[i].SkillNo = i;
             skills[i].manager = this;
         }
+        current = null;
+        nextSkill = null;
+        stunTime = 0.0f;
     }
 
     // Use this for initialization
@@ -58,10 +90,10 @@ public class SkillManager : NetworkBehaviour
     {
         if (!current)
         {
-            return;
+            throw new UnityException("当前技能为空");
         }
 
-        //当前技能的处理
+        //当前技能的处理（硬直中依然处理）
         current.Process(isServer);
         if (current.status != Skill.SkillStatus.Active)
         {
@@ -74,9 +106,31 @@ public class SkillManager : NetworkBehaviour
             return;
         }
 
+        //硬直中的处理
+        if (isInStun)
+        {
+            stunTime -= Time.fixedDeltaTime;
+            stunTime = Mathf.Max(stunTime, 0.0f);
+        }
+
         //技能输入检测
         foreach (Skill skill in skills)
         {
+            //如果技能无条件参与检查，那么依然检查技能
+            if (skill.AlwaysCheckInput)
+            {
+                if (skill.InputDetermine())
+                {
+                    nextSkill = skill;
+                }
+                continue;
+            }
+            //否则硬直中不检测技能
+            if (isInStun)
+            {
+                continue;
+            }
+            //技能可用，且优先级足够，那么进行检测
             if (skill.status != Skill.SkillStatus.Disable &&
                 skill.InterruptPriority > current.InterruptPriority &&
                 skill.InputDetermine())
@@ -85,18 +139,31 @@ public class SkillManager : NetworkBehaviour
             }
         }
 
+        //技能通常打断
+        if (nextSkill &&
+            current.GenericInterruptable &&
+            (current.phase == Skill.SkillPhase.Recovery ||
+            current.status != Skill.SkillStatus.Active))
+        {
+            CmdCast(nextSkill.SkillNo);
+            return;
+        }
+
+        //技能无条件打断
+        if (nextSkill &&
+            nextSkill.AlwaysCheckInput)
+        {
+            //无条件打断会破坏硬直
+            stunTime = 0.0f;
+            CmdCast(nextSkill.SkillNo);
+            return;
+        }
+
         //技能自发结束
         if (current.status != Skill.SkillStatus.Active)
         {
             ReturnToStand();
-        }
-
-        //技能通常打断
-        if (nextSkill &&
-            current.GenericInterruptable &&
-            current.phase == Skill.SkillPhase.Recovery)
-        {
-            CmdCast(nextSkill.SkillNo);
+            return;
         }
 
         //出招取消
@@ -134,6 +201,6 @@ public class SkillManager : NetworkBehaviour
     public void SkillCancel()
     {
         //一般取消直接用Stand取消
-        CmdCast(0);
+        CmdCast(standSkill.SkillNo);
     }
 }

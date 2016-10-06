@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Collections.Generic;
 
 public class HitBox : NetworkBehaviour
 {
+    /// <summary>
+    /// 技能的施放者
+    /// </summary>
+    [Tooltip("动态分配不需填写")]
+    public NetworkIdentity player;
+
     /// <summary>
     /// 技能作为攻击方的种类
     /// 一般和防御方种类是一致的
@@ -28,8 +35,15 @@ public class HitBox : NetworkBehaviour
     }
     public HurtStyle hurtStyle = HurtStyle.LightHurt;
 
-    [Tooltip("动态分配不需填写")]
-    public GameObject player;
+    /// <summary>
+    /// 屏蔽列表，在此列表中的角色不会再次参与判定
+    /// </summary>
+    protected List<GameObject> maskList;
+
+    void Awake()
+    {
+        maskList = new List<GameObject>();
+    }
 
     /// <summary>
     /// 在防御方OnHit后调用
@@ -53,7 +67,15 @@ public class HitBox : NetworkBehaviour
     /// <remarks>大部分情况并不需要重载这个函数</remarks>
     public virtual bool OnHitStart(bool isServer, GameObject target)
     {
-        return true; //TODO:列表
+        if (target.GetComponent<NetworkIdentity>() == player)
+        {
+            return false;
+        }
+        if (maskList.Exists(obj => obj == player))
+        {
+            return false;
+        }
+        return true;
     }
 
     /// <summary>
@@ -64,5 +86,6 @@ public class HitBox : NetworkBehaviour
     /// <param name="isBlocked">是否被防御（是确定计算的防御）</param>
     public virtual void OnTakeEffect(bool isServer, GameObject target, bool isBlocked)
     {
+        maskList.Add(target);
     }
 }
