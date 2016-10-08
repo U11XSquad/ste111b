@@ -20,6 +20,17 @@ public class Skill : MonoBehaviour
     protected GameObject player;
 
     /// <summary>
+    /// 拥有该技能的当前玩家（网络属性）
+    /// </summary>
+    public GameObject Player
+    {
+        get
+        {
+            return player;
+        }
+    }
+
+    /// <summary>
     /// player的输入组件
     /// </summary>
     protected InputCtrl input;

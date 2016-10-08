@@ -37,7 +37,7 @@ public class BlockSkill : Skill
         }
 
         //硬直中不考虑输入
-        if (manager.isInStun)
+        if (manager.IsInStun)
         {
             return;
         }

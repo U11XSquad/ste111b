@@ -8,8 +8,30 @@ public class HitBox : NetworkBehaviour
     /// <summary>
     /// 技能的施放者
     /// </summary>
-    [Tooltip("动态分配不需填写")]
+    [Tooltip("动态分配不需填写"), SyncVar]
     public NetworkIdentity player;
+
+    /// <summary>
+    /// 子弹的旋转
+    /// </summary>
+    [SyncVar]
+    protected Quaternion rotate;
+
+    /// <summary>
+    /// 技能编号
+    /// </summary>
+    protected int skillNo;
+
+    /// <summary>
+    /// 技能编号
+    /// </summary>
+    public int SkillNo
+    {
+        get
+        {
+            return skillNo;
+        }
+    }
 
     /// <summary>
     /// 技能作为攻击方的种类
@@ -38,11 +60,11 @@ public class HitBox : NetworkBehaviour
     /// <summary>
     /// 屏蔽列表，在此列表中的角色不会再次参与判定
     /// </summary>
-    protected List<GameObject> maskList;
+    protected List<NetworkIdentity> maskList;
 
     void Awake()
     {
-        maskList = new List<GameObject>();
+        maskList = new List<NetworkIdentity>();
     }
 
     /// <summary>
@@ -71,7 +93,7 @@ public class HitBox : NetworkBehaviour
         {
             return false;
         }
-        if (maskList.Exists(obj => obj == player))
+        if (maskList.Exists(obj => obj == target.GetComponent<NetworkIdentity>()))
         {
             return false;
         }
@@ -86,6 +108,43 @@ public class HitBox : NetworkBehaviour
     /// <param name="isBlocked">是否被防御（是确定计算的防御）</param>
     public virtual void OnTakeEffect(bool isServer, GameObject target, bool isBlocked)
     {
-        maskList.Add(target);
+        maskList.Add(target.GetComponent<NetworkIdentity>());
+    }
+
+    /// <summary>
+    /// <para>创建HitBox对象并设置基本属性</para>
+    /// 之后需要手动Spawn
+    /// </summary>
+    /// <param name="prefab">HitBox的预制件</param>
+    /// <param name="pos">创建位置</param>
+    /// <param name="rotate">创建方位</param>
+    /// <param name="skill">创建的技能</param>
+    /// <returns>新创建的HitBox</returns>
+    public static GameObject Create(Object prefab, Vector3 pos, Quaternion rotate, Skill skill)
+    {
+        var ret = (GameObject)Instantiate(prefab, pos, rotate);
+        var hitBox = ret.GetComponent<HitBox>();
+        hitBox.rotate = rotate;
+        hitBox.player = skill.Player.GetComponent<NetworkIdentity>();
+        hitBox.skillNo = skill.SkillNo;
+        return ret;
+    }
+
+    virtual protected void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            //此时仍然不能判断击中的是否是玩家，因为有可能是创造物
+            //所以交给对方处理
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("HitBox"))
+        {
+            //相杀，这里选择不处理
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
+        {
+            //默认层的是障碍物，直接删除对象
+            Destroy(gameObject);
+        }
     }
 }

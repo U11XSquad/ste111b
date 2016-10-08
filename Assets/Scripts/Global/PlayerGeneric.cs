@@ -23,17 +23,15 @@ public class PlayerGeneric : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-        //为了保证C/S处于同一平面内，需要手动调整位置
         if (isLocalPlayer)
         {
-            if (isServer)
-            {
-                transform.position = new Vector3(0f, 0f, 10.0f);
-            }
-            else
-            {
-                transform.position = new Vector3(0f, 0f, 0f);
-            }
+            TeamManager.Register(this, TeamManager.RegisterStatus.Player);
+            GetComponent<UIGeneric>().Register(true);
+        }
+        else
+        {
+            TeamManager.Register(this, TeamManager.RegisterStatus.Opponent);
+            GetComponent<UIGeneric>().Register(false);
         }
     }
 

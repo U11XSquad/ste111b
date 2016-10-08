@@ -5,20 +5,37 @@ using System.Collections;
 public class BattlerGeneric : NetworkBehaviour
 {
     /// <summary>
+    /// 最大生命值
+    /// </summary>
+    public int HPMax = 10000;
+
+    /// <summary>
     /// 生命值
     /// </summary>
     /// <remarks>因为服务器同步受伤事件，所以就不同步HP了</remarks>
-    public int HP = 10000;
-
-    /// <summary>
-    /// 当前硬直
-    /// </summary>
-    float curStun;
+    public int HP { get; set; }
 
     // Use this for initialization
     void Start()
     {
+        Respawn();
+    }
 
+    void Respawn()
+    {
+        //TODO:为了保证C/S处于同一平面内，需要手动调整位置
+        if (isLocalPlayer)
+        {
+            if (isServer)
+            {
+                transform.position = new Vector3(0f, 0f, 10.0f);
+            }
+            else
+            {
+                transform.position = new Vector3(0f, 0f, 0f);
+            }
+        }
+        HP = HPMax;
     }
 
     // Update is called once per frame
@@ -75,6 +92,30 @@ public class BattlerGeneric : NetworkBehaviour
         {
             hitBox.OnTakeEffect(isServer, gameObject, isBlocked);
         }
+    }
+
+    /// <summary>
+    /// <para>造成伤害并反映在技能上</para>
+    /// 该函数会在客户机和服务器同时被调用，因此不必同步HP
+    /// </summary>
+    /// <param name="isBlocked"></param>
+    /// <param name="damage"></param>
+    /// <param name="stunTime"></param>
+    /// <param name="style"></param>
+    public void DealDamage(bool isBlocked, int damage, float stunTime, HitBox.HurtStyle style)
+    {
+        HP -= damage;
+        //TODO:UI事件
+        if (HP <= 0)
+        {
+            OnDeath();
+        }
+        GetComponent<SkillManager>().DamageReact(isBlocked, stunTime, style);
+    }
+
+    void OnDeath()
+    {
+        Respawn();
     }
 
     /// <summary>

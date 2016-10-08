@@ -8,15 +8,7 @@ public class SkillManager : NetworkBehaviour
     /// <summary>
     /// 所有的技能
     /// </summary>
-    /// <remarks>
-    /// 固定技能如下：
-    /// <list type="bullet">
-    /// <item><term>0</term><description>通常站立</description></item>
-    /// <item><term>1</term><description>通常移动</description></item>
-    /// <item><term>2</term><description>通常防御</description></item>
-    /// </list>
-    /// </remarks>
-    public Skill[] skills;
+    protected Skill[] skills;
 
     /// <summary>
     /// 通常站立技
@@ -39,21 +31,21 @@ public class SkillManager : NetworkBehaviour
     /// <summary>
     /// 后摇取消后接的技能，参见<seealso cref="Skill.GenericInterruptable"/>
     /// </summary>
-    public Skill nextSkill { get; set; }
+    public Skill NextSkill { get; set; }
 
     /// <summary>
     /// 硬直时间
     /// </summary>
-    public float stunTime { get; set; }
+    public float StunTime { get; set; }
 
     /// <summary>
     /// 是否处于硬直中
     /// </summary>
-    public bool isInStun
+    public bool IsInStun
     {
         get
         {
-            return stunTime >= Mathf.Epsilon;
+            return StunTime >= Mathf.Epsilon;
         }
     }
 
@@ -64,19 +56,21 @@ public class SkillManager : NetworkBehaviour
     {
         current = standSkill;
         current.SkillStart(isServer);
-        nextSkill = null;
+        NextSkill = null;
     }
 
     void Awake()
     {
+        skills = GetComponentsInChildren<Skill>() as Skill[];
+
         for (int i = 0; i < skills.Length; i++)
         {
             skills[i].SkillNo = i;
             skills[i].manager = this;
         }
         current = null;
-        nextSkill = null;
-        stunTime = 0.0f;
+        NextSkill = null;
+        StunTime = 0.0f;
     }
 
     // Use this for initialization
@@ -95,10 +89,6 @@ public class SkillManager : NetworkBehaviour
 
         //当前技能的处理（硬直中依然处理）
         current.Process(isServer);
-        if (current.status != Skill.SkillStatus.Active)
-        {
-            ReturnToStand();
-        }
 
         //非本地玩家不进行检测、打断和取消
         if (!isLocalPlayer)
@@ -106,11 +96,17 @@ public class SkillManager : NetworkBehaviour
             return;
         }
 
-        //硬直中的处理
-        if (isInStun)
+        //当前技能的结束
+        if (current.status != Skill.SkillStatus.Active)
         {
-            stunTime -= Time.fixedDeltaTime;
-            stunTime = Mathf.Max(stunTime, 0.0f);
+            ReturnToStand();
+        }
+
+        //硬直中的处理
+        if (IsInStun)
+        {
+            StunTime -= Time.fixedDeltaTime;
+            StunTime = Mathf.Max(StunTime, 0.0f);
         }
 
         //技能输入检测
@@ -121,12 +117,12 @@ public class SkillManager : NetworkBehaviour
             {
                 if (skill.InputDetermine())
                 {
-                    nextSkill = skill;
+                    NextSkill = skill;
                 }
                 continue;
             }
             //否则硬直中不检测技能
-            if (isInStun)
+            if (IsInStun)
             {
                 continue;
             }
@@ -135,27 +131,27 @@ public class SkillManager : NetworkBehaviour
                 skill.InterruptPriority > current.InterruptPriority &&
                 skill.InputDetermine())
             {
-                nextSkill = skill;
+                NextSkill = skill;
             }
         }
 
         //技能通常打断
-        if (nextSkill &&
+        if (NextSkill &&
             current.GenericInterruptable &&
             (current.phase == Skill.SkillPhase.Recovery ||
             current.status != Skill.SkillStatus.Active))
         {
-            CmdCast(nextSkill.SkillNo);
+            CmdCast(NextSkill.SkillNo);
             return;
         }
 
         //技能无条件打断
-        if (nextSkill &&
-            nextSkill.AlwaysCheckInput)
+        if (NextSkill &&
+            NextSkill.AlwaysCheckInput)
         {
             //无条件打断会破坏硬直
-            stunTime = 0.0f;
-            CmdCast(nextSkill.SkillNo);
+            StunTime = 0.0f;
+            CmdCast(NextSkill.SkillNo);
             return;
         }
 
@@ -188,7 +184,7 @@ public class SkillManager : NetworkBehaviour
         //开始新技能
         current.SkillStart(isServer);
         //撤销下一个技能
-        nextSkill = null;
+        NextSkill = null;
     }
 
     /// <summary>
@@ -202,5 +198,35 @@ public class SkillManager : NetworkBehaviour
     {
         //一般取消直接用Stand取消
         CmdCast(standSkill.SkillNo);
+    }
+
+    /// <summary>
+    /// 进入特定的受伤状态
+    /// </summary>
+    /// <param name="style">受伤种类(未使用)</param>
+    void EnterHurt(HitBox.HurtStyle style)
+    {
+        //Command需要在权限方调用
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        //忽略style
+        CmdCast(hurtSkill.SkillNo);
+    }
+
+    /// <summary>
+    /// 伤害反应
+    /// </summary>
+    /// <param name="isBlocked">是否防御</param>
+    /// <param name="stunTime">硬直时间</param>
+    /// <param name="style">受伤种类（未使用）</param>
+    public void DamageReact(bool isBlocked, float stunTime, HitBox.HurtStyle style)
+    {
+        this.StunTime = stunTime;
+        if (!isBlocked)
+        {
+            EnterHurt(style);
+        }
     }
 }
