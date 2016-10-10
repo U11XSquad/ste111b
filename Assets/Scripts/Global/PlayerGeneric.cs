@@ -9,6 +9,14 @@ public class PlayerGeneric : NetworkBehaviour
     [Tooltip("地面阻力，单位m/s^2")]
     public float groundFric = 50.0f;
 
+    public enum Occupation
+    {
+        Player,
+        Opponent,
+        Other
+    }
+    public Occupation Occup { get; set; }
+
     /// <summary>
     /// 指定角色朝向
     /// </summary>
@@ -25,13 +33,13 @@ public class PlayerGeneric : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            Occup = Occupation.Player;
             TeamManager.Register(this, TeamManager.RegisterStatus.Player);
-            GetComponent<UIGeneric>().Register(true);
         }
         else
         {
+            Occup = Occupation.Opponent;
             TeamManager.Register(this, TeamManager.RegisterStatus.Opponent);
-            GetComponent<UIGeneric>().Register(false);
         }
     }
 

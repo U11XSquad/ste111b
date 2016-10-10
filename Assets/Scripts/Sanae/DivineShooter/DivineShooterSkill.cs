@@ -30,7 +30,7 @@ public class DivineShooterSkill : Skill
         if (server)
         {
             var pos = player.transform.position + player.transform.forward * 0.5f;
-            var bullet = HitBox.Create(bulletPrefab, pos, player.transform.rotation, this);
+            var bullet = HitBox.Create(bulletPrefab, pos, player.transform.rotation, this, 100.0f);
             //注：此处不可设置Rigidbody受力，应在HitBox的Start中设定
             //同样此处只有SyncVar会得到传播
             NetworkServer.Spawn(bullet);

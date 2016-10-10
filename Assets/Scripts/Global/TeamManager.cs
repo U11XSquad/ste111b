@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
-public class TeamManager : NetworkBehaviour
+public class TeamManager : MonoBehaviour
 {
     static TeamManager instance;
     static public TeamManager Instance

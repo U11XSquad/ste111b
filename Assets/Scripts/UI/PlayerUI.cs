@@ -17,4 +17,20 @@ public class PlayerUI : MonoBehaviour
             player = value;
         }
     }
+
+    virtual protected void OnGUI()
+    {
+        if (!player)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            OnDraw();
+        }
+    }
+
+    virtual protected void OnDraw()
+    {
+    }
 }

@@ -40,7 +40,7 @@ public class UIRegister : MonoBehaviour
             rectTrans.pivot = new Vector2(0, rectTrans.pivot.y);
             var pos = rectTrans.position;
             pos.x = border;
-            pos.y += 480.0f;
+            pos.y += Screen.height * rectTrans.anchorMin.y;
             rectTrans.position = pos;
         }
         else
@@ -50,8 +50,8 @@ public class UIRegister : MonoBehaviour
             rectTrans.pivot = new Vector2(1, rectTrans.pivot.y);
             var pos = rectTrans.position;
             pos.x = -border;
-            pos.x += 640.0f;
-            pos.y += 480.0f;
+            pos.x += Screen.width;
+            pos.y += Screen.height * rectTrans.anchorMin.y;
             rectTrans.position = pos;
         }
 

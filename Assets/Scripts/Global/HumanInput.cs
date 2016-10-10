@@ -48,6 +48,9 @@ public class HumanInput : InputCtrl
 
         //修正移动值
         AdjustMove();
+
+        //基类的按键记录
+        RecordKey();
     }
 
     void AdjustMove()

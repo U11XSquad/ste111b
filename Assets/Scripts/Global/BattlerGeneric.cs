@@ -15,9 +15,39 @@ public class BattlerGeneric : NetworkBehaviour
     /// <remarks>因为服务器同步受伤事件，所以就不同步HP了</remarks>
     public int HP { get; set; }
 
+    /// <summary>
+    /// HP显示条预制件
+    /// </summary>
+    public Object hpbar;
+
+    public delegate void BlockEvent();
+    /// <summary>
+    /// <para>格挡成功后的事件调用</para>
+    /// 供其他非技能的人物系统使用
+    /// </summary>
+    public event BlockEvent OnBlock;
+
+    public delegate void DamageEvent(int damage);
+    /// <summary>
+    /// <para>受到伤害后的事件调用</para>
+    /// 供其他非技能的人物系统使用
+    /// </summary>
+    public event DamageEvent OnDamage;
+
+    void Awake()
+    {
+        GetComponent<UIGeneric>().OnRegister += UIRegister;
+    }
+
+    void UIRegister(bool isLocal, UIRegister panel)
+    {
+        panel.Register(hpbar, GetComponent<NetworkIdentity>());
+    }
+
     // Use this for initialization
     void Start()
     {
+        //重生
         Respawn();
     }
 
@@ -86,6 +116,7 @@ public class BattlerGeneric : NetworkBehaviour
         if (isBlocked)
         {
             isHit = manager.current.BlockSucceed(isServer, hitBox);
+            OnBlock();
         }
         //最后如果防御方依然认为技能命中，计算技能的攻击效果
         if (isHit)
@@ -105,7 +136,7 @@ public class BattlerGeneric : NetworkBehaviour
     public void DealDamage(bool isBlocked, int damage, float stunTime, HitBox.HurtStyle style)
     {
         HP -= damage;
-        //TODO:UI事件
+        OnDamage(damage);
         if (HP <= 0)
         {
             OnDeath();

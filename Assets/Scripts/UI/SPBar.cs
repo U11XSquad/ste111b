@@ -3,8 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 
-public class HPBar : PlayerUI
+public class SPBar : PlayerUI
 {
+
     // Use this for initialization
     void Start()
     {
@@ -15,7 +16,7 @@ public class HPBar : PlayerUI
     override protected void OnDraw()
     {
         var text = GetComponent<Text>();
-        var battler = this.player.GetComponent<BattlerGeneric>();
-        text.text = string.Format("{0:f0}/{1:f0}", battler.HP, battler.HPMax);
+        var spgeneric = this.player.GetComponent<SPGeneric>();
+        text.text = string.Format("{0:f0}%", spgeneric.SP);
     }
 }

@@ -5,9 +5,9 @@ public class DivineShooterHitBox : HitBox
 {
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
-        transform.rotation = base.rotate;
+        base.Start();
         var rigid = GetComponent<Rigidbody>();
         rigid.AddForce(transform.forward, ForceMode.VelocityChange);
     }
@@ -22,6 +22,12 @@ public class DivineShooterHitBox : HitBox
         var dist = target.transform.position - transform.position;
         dist.Normalize();
         target.GetComponent<Rigidbody>().AddForce(dist * 150.0f);
+
+        var sp = this.player.GetComponent<SPGeneric>();
+        if (sp)
+        {
+            sp.SP += 50.0f;
+        }
 
         Destroy(gameObject);
     }

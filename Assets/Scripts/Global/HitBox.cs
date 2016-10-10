@@ -20,6 +20,7 @@ public class HitBox : NetworkBehaviour
     /// <summary>
     /// 技能编号
     /// </summary>
+    [SyncVar]
     protected int skillNo;
 
     /// <summary>
@@ -62,9 +63,31 @@ public class HitBox : NetworkBehaviour
     /// </summary>
     protected List<NetworkIdentity> maskList;
 
+    /// <summary>
+    /// 存续时间
+    /// </summary>
+    [SyncVar]
+    protected float lifeTime;
+
     void Awake()
     {
         maskList = new List<NetworkIdentity>();
+    }
+
+    protected virtual void Start()
+    {
+        if (gameObject.layer != LayerMask.NameToLayer("HitBox"))
+        {
+            throw new UnityException("判定盒必须位于HitBox层");
+        }
+
+        transform.rotation = this.rotate;
+        Invoke("KillSelf", lifeTime);
+    }
+
+    void KillSelf()
+    {
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -119,14 +142,17 @@ public class HitBox : NetworkBehaviour
     /// <param name="pos">创建位置</param>
     /// <param name="rotate">创建方位</param>
     /// <param name="skill">创建的技能</param>
+    /// <param name="lifeTime">存续时间</param>
     /// <returns>新创建的HitBox</returns>
-    public static GameObject Create(Object prefab, Vector3 pos, Quaternion rotate, Skill skill)
+    public static GameObject Create(Object prefab, Vector3 pos, Quaternion rotate, Skill skill, float lifeTime)
     {
+        pos += Vector3.up * 1.6f; //身高补正
         var ret = (GameObject)Instantiate(prefab, pos, rotate);
         var hitBox = ret.GetComponent<HitBox>();
         hitBox.rotate = rotate;
         hitBox.player = skill.Player.GetComponent<NetworkIdentity>();
         hitBox.skillNo = skill.SkillNo;
+        hitBox.lifeTime = lifeTime;
         return ret;
     }
 
