@@ -19,8 +19,7 @@ public class DivineShooterHitBox : HitBox
         var opponent = target.GetComponent<BattlerGeneric>();
         opponent.DealDamage(isBlocked, 1000, 1.0f, HurtStyle.LightHurt);
 
-        var dist = target.transform.position - transform.position;
-        dist.Normalize();
+        var dist = GetHitDir(target);;
         target.GetComponent<Rigidbody>().AddForce(dist * 150.0f);
 
         var sp = this.player.GetComponent<SPGeneric>();

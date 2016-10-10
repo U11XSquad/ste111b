@@ -4,6 +4,24 @@ using System.Collections;
 
 public class SPGeneric : MonoBehaviour
 {
+    string scName;
+    public string SCName
+    {
+        get
+        {
+            return scName;
+        }
+    }
+
+    bool inSpell;
+    public bool InSpell
+    {
+        get
+        {
+            return inSpell;
+        }
+    }
+
     float spval;
     public float SP
     {
@@ -17,19 +35,33 @@ public class SPGeneric : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// SP显示条预制件
-    /// </summary>
+    [Tooltip("SP显示条预制件")]
     public Object spbar;
+
+    [Tooltip("SC显示条预制件")]
+    public Object scbar;
+
+    /// <summary>
+    /// SC中SP减少的速率
+    /// </summary>
+    float lostSpeed;
+
+    /// <summary>
+    /// SC发动后的技能
+    /// </summary>
+    Skill spellSkill;
 
     void UIRegister(bool isLocal, UIRegister panel)
     {
         panel.Register(spbar, GetComponent<NetworkIdentity>());
+        panel.Register(scbar, GetComponent<NetworkIdentity>());
     }
 
     void Awake()
     {
         spval = 0;
+        scName = "";
+        inSpell = false;
         GetComponent<UIGeneric>().OnRegister += UIRegister;
     }
 
@@ -43,7 +75,6 @@ public class SPGeneric : MonoBehaviour
         SP += damage / 100.0f;
     }
 
-    // Use this for initialization
     void Start()
     {
         var battler = GetComponent<BattlerGeneric>();
@@ -51,9 +82,33 @@ public class SPGeneric : MonoBehaviour
         battler.OnDamage += SPOnDamage;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpellEnd()
     {
+        scName = "";
+        inSpell = false;
+        spval = 0.0f;
+        lostSpeed = 0.0f;
+        spellSkill.status = Skill.SkillStatus.Disable;
+    }
 
+    public void SpellStart(Skill spellSkill, float lastTime)
+    {
+        this.spellSkill = spellSkill;
+        spellSkill.status = Skill.SkillStatus.Inactive;
+        lostSpeed = 100.0f * Time.fixedDeltaTime / lastTime;
+        inSpell = true;
+        scName = spellSkill.skillName;
+    }
+
+    void FixedUpdate()
+    {
+        if (inSpell)
+        {
+            spval -= lostSpeed;
+            if (spval <= 0.0f)
+            {
+                SpellEnd();
+            }
+        }
     }
 }

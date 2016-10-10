@@ -4,6 +4,11 @@ using System.Collections;
 public class Skill : MonoBehaviour
 {
     /// <summary>
+    /// 技能名
+    /// </summary>
+    public string skillName = "";
+
+    /// <summary>
     /// 技能编号
     /// </summary>
     [Tooltip("动态分配不需填写")]
@@ -220,6 +225,43 @@ public class Skill : MonoBehaviour
     /// </returns>
     virtual public bool BlockSucceed(bool isServer, HitBox hitBox)
     {
+        return true;
+    }
+
+    protected bool NameToInput(string keyName, float inputInterval)
+    {
+        //检测单按键
+        if (keyName.Contains("L") && !input.LTrigger)
+        {
+            return false;
+        }
+        if (keyName.Contains("N") && !input.NTrigger)
+        {
+            return false;
+        }
+        if (keyName.Contains("H") && !input.HTrigger)
+        {
+            return false;
+        }
+        if (keyName.Contains("S") && !input.STrigger)
+        {
+            return false;
+        }
+
+        //检测复合按键
+        if (keyName.Contains("46") && !input.Test46(inputInterval))
+        {
+            return false;
+        }
+        else if (keyName.Contains("360") && !input.Test360(inputInterval))
+        {
+            return false;
+        }
+        else if (keyName.Contains("6") && !input.IsMoving)
+        {
+            return false;
+        }
+
         return true;
     }
 }

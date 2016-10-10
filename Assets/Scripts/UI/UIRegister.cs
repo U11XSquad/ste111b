@@ -28,7 +28,8 @@ public class UIRegister : MonoBehaviour
     public GameObject Register(Object prefab, NetworkIdentity player, float border)
     {
         var ret = (GameObject)Instantiate(prefab, transform);
-        ret.GetComponent<PlayerUI>().Player = player;
+        var ui = ret.GetComponent<PlayerUI>();
+        ui.Player = player;
 
         var rectTrans = ret.GetComponent<RectTransform>();
 
@@ -54,6 +55,8 @@ public class UIRegister : MonoBehaviour
             pos.y += Screen.height * rectTrans.anchorMin.y;
             rectTrans.position = pos;
         }
+
+        ui.OnRegister(this, isLeft);
 
         return ret;
     }

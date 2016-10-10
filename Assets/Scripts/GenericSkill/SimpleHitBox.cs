@@ -42,9 +42,8 @@ public class SimpleHitBox : HitBox
         base.OnTakeEffect(isServer, target, isBlocked);
 
         var opponent = target.GetComponent<BattlerGeneric>();
-        var dist = target.transform.position - transform.position;
+        var dist = GetHitDir(target);
         var sp = this.player.GetComponent<SPGeneric>();
-        dist.Normalize();
 
         if (isBlocked)
         {

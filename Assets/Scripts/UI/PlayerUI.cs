@@ -33,4 +33,8 @@ public class PlayerUI : MonoBehaviour
     virtual protected void OnDraw()
     {
     }
+
+    virtual public void OnRegister(UIRegister panel, bool isLeft)
+    {
+    }
 }
