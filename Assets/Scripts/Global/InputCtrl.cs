@@ -36,6 +36,7 @@ public abstract class InputCtrl : NetworkBehaviour
     Dictionary<KeyName, bool> keyIsDown;
     int currentFrame;
     KeyName preDir;
+    bool dirDown;
 
     public bool LeftHold
     {
@@ -270,6 +271,11 @@ public abstract class InputCtrl : NetworkBehaviour
             if (dir != KeyName.K5)
             {
                 PushKey(dir, KeyEvent.Down);
+                dirDown = true;
+            }
+            else
+            {
+                dirDown = false;
             }
         }
         preDir = dir;
@@ -321,5 +327,20 @@ public abstract class InputCtrl : NetworkBehaviour
             }
         }
         return f2 && f4 && f6 && f8;
+    }
+
+    public bool TestDash()
+    {
+        if (!dirDown)
+            return false;
+        int cnt = Mathf.CeilToInt(0.1f / Time.fixedDeltaTime);
+        foreach (var rec in keyRec)
+        {
+            if (rec.name == preDir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
