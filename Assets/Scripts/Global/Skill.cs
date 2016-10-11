@@ -187,7 +187,8 @@ public class Skill : MonoBehaviour
     /// <param name="isServer">是否是服务器调用</param>
     virtual public void SkillBreak(bool isServer)
     {
-        status = SkillStatus.Inactive;
+        if(status == SkillStatus.Active)
+            status = SkillStatus.Inactive;
         phase = SkillPhase.None;
     }
 

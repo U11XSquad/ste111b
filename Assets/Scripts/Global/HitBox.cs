@@ -177,7 +177,7 @@ public class HitBox : NetworkBehaviour
     protected Vector3 GetHitDir(GameObject target)
     {
         var ret = target.transform.position - transform.position;
-        ret.z = 0.0f; //消除身高的补正
+        ret.y = 0.0f; //消除身高的补正
         ret.Normalize();
         return ret;
     }
