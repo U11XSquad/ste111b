@@ -6,6 +6,9 @@ public class MOMSpellSkill : Skill
 {
     public GameObject[] bullets;
 
+    public AudioClip startSe;
+    public AudioClip endSe;
+
     public override bool InputDetermine()
     {
         return input.STrigger;
@@ -20,6 +23,7 @@ public class MOMSpellSkill : Skill
         }
         Invoke("DoEnd", 6.0f);
         player.GetComponent<SPGeneric>().SpellEnd();
+        SoundEffect.Play(startSe);
     }
 
     public override void SkillBreak(bool isServer)
@@ -32,6 +36,7 @@ public class MOMSpellSkill : Skill
     {
         phase = SkillPhase.None;
         status = SkillStatus.Disable;
+        SoundEffect.Play(endSe);
     }
 
     IEnumerator MountainOfMahjong()

@@ -27,6 +27,9 @@ public class SCDeclSkill : Skill
     [Tooltip("宣言后的持续时间")]
     public float lastTime;
 
+    [Tooltip("播放音效")]
+    public AudioClip seClip;
+
     public override bool InputDetermine()
     {
         var spgeneric = player.GetComponent<SPGeneric>();
@@ -45,6 +48,11 @@ public class SCDeclSkill : Skill
 
         var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
         animator.SetBool(animationString, true);
+
+        if (seClip)
+        {
+            SoundEffect.Play(seClip);
+        }
     }
 
     protected virtual void DoActive()

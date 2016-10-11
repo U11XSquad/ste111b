@@ -34,12 +34,12 @@ public class MOMHitBox : HitBox
         if (isBlocked)
         {
             opponent.DealDamage(isBlocked, 400, 1.3f, hurtStyle);
-            target.GetComponent<Rigidbody>().AddForce(dist * 140.0f);
+            target.GetComponent<Rigidbody>().AddForce(dist * 80.0f);
         }
         else
         {
             opponent.DealDamage(isBlocked, 1500, 0.5f, hurtStyle);
-            target.GetComponent<Rigidbody>().AddForce(dist * 150.0f);
+            target.GetComponent<Rigidbody>().AddForce(dist * 100.0f);
         }
     }
 }
