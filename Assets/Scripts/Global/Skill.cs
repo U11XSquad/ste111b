@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Skill : MonoBehaviour
@@ -147,6 +148,10 @@ public class Skill : MonoBehaviour
         }
 
         input = player.GetComponent<InputCtrl>();
+    }
+
+    virtual public void OnRegisterPrefab()
+    {
     }
 
     virtual protected void Start()

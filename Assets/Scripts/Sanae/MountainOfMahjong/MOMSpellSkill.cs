@@ -9,6 +9,14 @@ public class MOMSpellSkill : Skill
     public AudioClip startSe;
     public AudioClip endSe;
 
+    public override void OnRegisterPrefab()
+    {
+        foreach (GameObject bullet in bullets)
+        {
+            ClientScene.RegisterPrefab(bullet);
+        }
+    }
+
     public override bool InputDetermine()
     {
         return input.STrigger;

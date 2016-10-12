@@ -7,6 +7,11 @@ public class DivineShooterSkill : Skill
     bool server = false;
     public GameObject bulletPrefab;
 
+    public override void OnRegisterPrefab()
+    {
+        ClientScene.RegisterPrefab(bulletPrefab);
+    }
+
     public override bool InputDetermine()
     {
         return input.LTrigger;

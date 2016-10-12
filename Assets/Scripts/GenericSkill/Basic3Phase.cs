@@ -33,6 +33,11 @@ public class Basic3Phase : Skill
 
     bool server;
 
+    public override void OnRegisterPrefab()
+    {
+        ClientScene.RegisterPrefab(hitBox as GameObject);
+    }
+
     public override bool InputDetermine()
     {
         //检测SP消耗

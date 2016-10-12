@@ -73,6 +73,14 @@ public class SkillManager : NetworkBehaviour
         StunTime = 0.0f;
     }
 
+    public override void OnStartClient()
+    {
+        foreach(Skill skill in skills)
+        {
+            skill.OnRegisterPrefab();
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
