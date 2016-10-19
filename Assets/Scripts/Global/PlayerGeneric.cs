@@ -4,6 +4,7 @@ using System.Collections;
 
 public class PlayerGeneric : NetworkBehaviour
 {
+    public string avatarName;
     public GameObject model;
 
     [Tooltip("地面阻力，单位m/s^2")]

@@ -52,7 +52,14 @@ public class TeamManager : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
+        //创建玩家列表
         allPlayers = new List<NetworkIdentity>();
+        //通知各个凭依创建玩家对象替换
+        var yorisiros = FindObjectsOfType<Yorisiro>();
+        foreach (var yorisiro in yorisiros)
+        {
+            yorisiro.OnSceneGetReady();
+        }
     }
 
     // Update is called once per frame
