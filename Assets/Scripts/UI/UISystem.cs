@@ -37,4 +37,13 @@ public class UISystem : MonoBehaviour
             return Instance.rightPanel;
         }
     }
+
+    public UIGlobalRegister fullPanel;
+    static public UIGlobalRegister FullPanel
+    {
+        get
+        {
+            return Instance.fullPanel;
+        }
+    }
 }

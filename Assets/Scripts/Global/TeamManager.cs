@@ -2,7 +2,9 @@
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
+[NetworkSettings(channel=1)]
 public class TeamManager : NetworkBehaviour
 {
     static TeamManager instance;
@@ -49,7 +51,35 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
-    // Use this for initialization
+    public float totalTime = 5.0f;
+    [SyncVar]
+    float remainTime;
+    static public float RemainTime
+    {
+        get
+        {
+            return Instance.remainTime;
+        }
+    }
+
+    bool uiRegistered = false;
+    public Object TimeBarPrefab;
+
+    public ResultCarrier resultCarrierPrefab;
+
+    int localPlayerId;
+    static public int LocalPlayerId
+    {
+        get
+        {
+            return Instance.localPlayerId;
+        }
+        set
+        {
+            Instance.localPlayerId = value;
+        }
+    }
+
     void Start()
     {
         //创建玩家列表
@@ -60,12 +90,31 @@ public class TeamManager : NetworkBehaviour
         {
             yorisiro.OnSceneGetReady();
         }
+        //UI注册标志
+        uiRegistered = false;
+        //开启计时器
+        remainTime = totalTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (!uiRegistered)
+        {
+            RegisterUI();
+            uiRegistered = true;
+        }
+    }
 
+    void FixedUpdate()
+    {
+        if (isServer)
+        {
+            remainTime -= Time.fixedDeltaTime;
+        }
+        if (isServer && remainTime <= 0.0f)
+        {
+            OnRoundEnd();
+        }
     }
 
     public enum RegisterStatus
@@ -85,5 +134,41 @@ public class TeamManager : NetworkBehaviour
         {
             Instance.opponent = player.GetComponent<NetworkIdentity>();
         }
+    }
+
+    struct PlayerResult
+    {
+        public ResultCarrier.Result result;
+    }
+
+    void OnRoundEnd()
+    {
+        PlayerResult[] results = GetResults();
+        RpcEnterResultScene(results);
+
+        //var manager = FindObjectOfType<NetworkManager>();
+        //manager.ServerChangeScene("ResultScene");
+    }
+
+    [ClientRpc]
+    void RpcEnterResultScene(PlayerResult[] results)
+    {
+        var res = Object.Instantiate(resultCarrierPrefab.gameObject).GetComponent<ResultCarrier>();
+        res.result = results[localPlayerId].result;
+        SceneManager.LoadScene("ResultScene");
+    }
+
+    PlayerResult[] GetResults()
+    {
+        var ret = new PlayerResult[allPlayers.Count];
+        //TODO
+        ret[0].result = ResultCarrier.Result.Win;
+        ret[1].result = ResultCarrier.Result.Lose;
+        return ret;
+    }
+
+    void RegisterUI()
+    {
+        UISystem.FullPanel.Register(TimeBarPrefab);
     }
 }

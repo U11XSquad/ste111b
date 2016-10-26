@@ -7,6 +7,20 @@ public class PlayerGeneric : NetworkBehaviour
     public string avatarName;
     public GameObject model;
 
+    [SyncVar]
+    protected int playerIndex;
+    public int PlayerIndex
+    {
+        get
+        {
+            return playerIndex;
+        }
+        set
+        {
+            playerIndex = value;
+        }
+    }
+
     [Tooltip("地面阻力，单位m/s^2")]
     public float groundFric = 50.0f;
 
@@ -36,6 +50,7 @@ public class PlayerGeneric : NetworkBehaviour
         {
             Occup = Occupation.Player;
             TeamManager.Register(this, TeamManager.RegisterStatus.Player);
+            TeamManager.LocalPlayerId = playerIndex;
         }
         else
         {

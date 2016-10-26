@@ -6,6 +6,20 @@ using System.Linq;
 public class Yorisiro : NetworkBehaviour
 {
     [SyncVar]
+    protected int playerIndex;
+    public int PlayerIndex
+    {
+        get
+        {
+            return playerIndex;
+        }
+        set
+        {
+            playerIndex = value;
+        }
+    }
+
+    [SyncVar]
     protected string characterName;
     public string CharacterName
     {
@@ -32,6 +46,7 @@ public class Yorisiro : NetworkBehaviour
         }
 
         var newp = (GameObject)Instantiate(chara, transform.position, transform.rotation);
+        newp.GetComponent<PlayerGeneric>().PlayerIndex = playerIndex;
         NetworkServer.Spawn(newp);
         NetworkServer.ReplacePlayerForConnection(conn, newp, 0);
         Destroy(gameObject);
