@@ -46,7 +46,7 @@ public class SCDeclSkill : Skill
         base.SkillStart(isServer);
         Invoke("DoActive", startupTime);
 
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool(animationString, true);
 
         if (seClip)
@@ -67,7 +67,7 @@ public class SCDeclSkill : Skill
     {
         phase = SkillPhase.None;
         status = SkillStatus.Inactive;
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool(animationString, false);
     }
 
@@ -75,7 +75,7 @@ public class SCDeclSkill : Skill
     {
         base.SkillBreak(isServer);
         CancelInvoke();
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool(animationString, false);
     }
 }

@@ -9,6 +9,9 @@ public class BattlerGeneric : NetworkBehaviour
     /// </summary>
     public int HPMax = 10000;
 
+    [Tooltip("复活准备时间")]
+    public float respawnTime = 3.0f;
+
     /// <summary>
     /// 生命值
     /// </summary>
@@ -34,6 +37,15 @@ public class BattlerGeneric : NetworkBehaviour
     /// </summary>
     public event DamageEvent OnDamage;
 
+    protected bool isDead;
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+    }
+
     void Awake()
     {
         GetComponent<UIGeneric>().OnRegister += UIRegister;
@@ -53,6 +65,8 @@ public class BattlerGeneric : NetworkBehaviour
 
     void Respawn()
     {
+        //取消复活的准备
+        CancelInvoke("Respawn");
         //TODO:为了保证C/S处于同一平面内，需要手动调整位置
         if (isLocalPlayer)
         {
@@ -66,6 +80,13 @@ public class BattlerGeneric : NetworkBehaviour
             }
         }
         HP = HPMax;
+        isDead = false;
+        //如果是玩家，准备技能
+        var sm = GetComponent<SkillManager>();
+        if (sm && isLocalPlayer)
+        {
+            sm.InstantBrake();
+        }
     }
 
     // Update is called once per frame
@@ -129,24 +150,37 @@ public class BattlerGeneric : NetworkBehaviour
     /// <para>造成伤害并反映在技能上</para>
     /// 该函数会在客户机和服务器同时被调用，因此不必同步HP
     /// </summary>
-    /// <param name="isBlocked"></param>
-    /// <param name="damage"></param>
-    /// <param name="stunTime"></param>
-    /// <param name="style"></param>
-    public void DealDamage(bool isBlocked, int damage, float stunTime, HitBox.HurtStyle style)
+    /// <param name="isBlocked">结果上此次伤害后对方是否是防御</param>
+    /// <param name="damage">伤害值</param>
+    /// <param name="stunTime">硬直时间</param>
+    /// <param name="style">受伤风格</param>
+    /// <param name="source">伤害来源（玩家）</param>
+    public void DealDamage(bool isBlocked, int damage, float stunTime, HitBox.HurtStyle style, PlayerGeneric source)
     {
         HP -= damage;
         OnDamage(damage);
         if (HP <= 0)
         {
-            OnDeath();
+            OnDeath(source);
         }
         GetComponent<SkillManager>().DamageReact(isBlocked, stunTime, style);
     }
 
-    void OnDeath()
+    void OnDeath(PlayerGeneric source)
     {
-        Respawn();
+        isDead = true;
+        //如果是玩家，记录死亡结果
+        var pg = GetComponent<PlayerGeneric>();
+        if (pg)
+        {
+            pg.OnDeath(source);
+        }
+        //如果现在依然是死亡状态，准备技能，计时重生
+        if (isDead)
+        {
+            GetComponent<SkillManager>().EnterDeath();
+            Invoke("Respawn", respawnTime);
+        }
     }
 
     /// <summary>

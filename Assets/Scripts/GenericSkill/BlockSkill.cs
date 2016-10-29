@@ -13,7 +13,7 @@ public class BlockSkill : Skill
         base.SkillStart(isServer);
         phase = SkillPhase.Recovery;
 
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool("blocking", true);
     }
 
@@ -21,13 +21,15 @@ public class BlockSkill : Skill
     {
         base.SkillBreak(isServer);
 
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool("blocking", false);
     }
 
     public override void Process(bool isServer)
     {
         base.Process(isServer);
+
+        //TODO:改出PlayerGeneric
 
         //非本地玩家不检测输入
         var playerGeneric = player.GetComponent<PlayerGeneric>();

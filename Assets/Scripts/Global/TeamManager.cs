@@ -25,6 +25,9 @@ public class TeamManager : NetworkBehaviour
     }
 
     NetworkIdentity player;
+    /// <summary>
+    /// 本地的玩家
+    /// </summary>
     static public NetworkIdentity Player
     {
         get
@@ -34,6 +37,9 @@ public class TeamManager : NetworkBehaviour
     }
 
     NetworkIdentity opponent;
+    /// <summary>
+    /// 本地当前锁定的对手
+    /// </summary>
     static public NetworkIdentity Opponent
     {
         get
@@ -54,6 +60,9 @@ public class TeamManager : NetworkBehaviour
     public float totalTime = 5.0f;
     [SyncVar]
     float remainTime;
+    /// <summary>
+    /// 剩余的比赛时间
+    /// </summary>
     static public float RemainTime
     {
         get
@@ -158,17 +167,65 @@ public class TeamManager : NetworkBehaviour
         SceneManager.LoadScene("ResultScene");
     }
 
+    /// <summary>
+    /// 计算每个人的结算结果
+    /// </summary>
+    /// <returns>结算结果</returns>
     PlayerResult[] GetResults()
     {
         var ret = new PlayerResult[allPlayers.Count];
-        //TODO
-        ret[0].result = ResultCarrier.Result.Win;
-        ret[1].result = ResultCarrier.Result.Lose;
+        //TODO:强制双人局
+        var p0 = allPlayers[0].GetComponent<PlayerGeneric>();
+        var p1 = allPlayers[1].GetComponent<PlayerGeneric>();
+
+        if (p0.DeathCount != p1.DeathCount)
+        {
+            if (p0.DeathCount < p1.DeathCount)
+            {
+                ret[p0.PlayerIndex].result = ResultCarrier.Result.Win;
+                ret[p1.PlayerIndex].result = ResultCarrier.Result.Lose;
+            }
+            else
+            {
+                ret[p0.PlayerIndex].result = ResultCarrier.Result.Lose;
+                ret[p1.PlayerIndex].result = ResultCarrier.Result.Win;
+            }
+        }
+        else
+        {
+            var b0 = p0.GetComponent<BattlerGeneric>();
+            var b1 = p1.GetComponent<BattlerGeneric>();
+            var hpRatio0 = b0.HP * 1.0f / b0.HPMax;
+            var hpRatio1 = b1.HP * 1.0f / b1.HPMax;
+            if (Mathf.Approximately(hpRatio0, hpRatio1))
+            {
+                ret[p0.PlayerIndex].result = ResultCarrier.Result.Tie;
+                ret[p1.PlayerIndex].result = ResultCarrier.Result.Tie;
+            }
+            else
+            {
+                if (hpRatio0 > hpRatio1)
+                {
+                    ret[p0.PlayerIndex].result = ResultCarrier.Result.Win;
+                    ret[p1.PlayerIndex].result = ResultCarrier.Result.Lose;
+                }
+                else
+                {
+                    ret[p0.PlayerIndex].result = ResultCarrier.Result.Lose;
+                    ret[p1.PlayerIndex].result = ResultCarrier.Result.Win;
+                }
+            }
+        }
         return ret;
     }
 
     void RegisterUI()
     {
         UISystem.FullPanel.Register(TimeBarPrefab);
+    }
+
+    static public void OnPlayerDeath(PlayerGeneric deadPlayer, PlayerGeneric source)
+    {
+        //TODO:时限限定用，改一次胜负用
     }
 }

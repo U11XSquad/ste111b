@@ -19,7 +19,7 @@ public class MoveSkill : Skill
         base.SkillStart(isServer);
         phase = SkillPhase.Recovery;
 
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool("walking", true);
     }
 
@@ -27,13 +27,15 @@ public class MoveSkill : Skill
     {
         base.SkillBreak(isServer);
 
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool("walking", false);
     }
 
     public override void Process(bool isServer)
     {
         base.Process(isServer);
+
+        //TODO:改出PlayerGeneric
 
         var playerGeneric = player.GetComponent<PlayerGeneric>();
         if (!playerGeneric.isLocalPlayer)

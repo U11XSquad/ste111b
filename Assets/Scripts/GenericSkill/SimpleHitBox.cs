@@ -47,7 +47,7 @@ public class SimpleHitBox : HitBox
 
         if (isBlocked)
         {
-            opponent.DealDamage(isBlocked, blockDamage, blockStun, hurtStyle);
+            opponent.DealDamage(isBlocked, blockDamage, blockStun, hurtStyle, player.GetComponent<PlayerGeneric>());
             target.GetComponent<Rigidbody>().AddForce(dist * blockBlow);
             if (sp)
             {
@@ -56,7 +56,7 @@ public class SimpleHitBox : HitBox
         }
         else
         {
-            opponent.DealDamage(isBlocked, hurtDamage, hurtStun, hurtStyle);
+            opponent.DealDamage(isBlocked, hurtDamage, hurtStun, hurtStyle, player.GetComponent<PlayerGeneric>());
             target.GetComponent<Rigidbody>().AddForce(dist * hurtBlow);
             if (sp)
             {

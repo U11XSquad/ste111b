@@ -59,7 +59,7 @@ public class Basic3Phase : Skill
         server = isServer;
         Invoke("DoActive", startupTime);
 
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool(animationString, true);
     }
 
@@ -67,7 +67,7 @@ public class Basic3Phase : Skill
     {
         base.SkillBreak(isServer);
         CancelInvoke();
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool(animationString, false);
     }
 
@@ -93,7 +93,7 @@ public class Basic3Phase : Skill
     {
         phase = SkillPhase.None;
         status = SkillStatus.Inactive;
-        var animator = player.GetComponent<PlayerGeneric>().model.GetComponent<Animator>();
+        var animator = Model.GetComponent<Animator>();
         animator.SetBool(animationString, false);
     }
 }

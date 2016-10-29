@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HurtSkill : Skill
+public class DeathSkill : Skill
 {
     public override void SkillStart(bool isServer)
     {
@@ -9,7 +9,7 @@ public class HurtSkill : Skill
         phase = SkillPhase.Recovery;
 
         var animator = Model.GetComponent<Animator>();
-        animator.SetBool("hurting", true);
+        animator.SetBool("dead", true);
     }
 
     public override void SkillBreak(bool isServer)
@@ -17,15 +17,6 @@ public class HurtSkill : Skill
         base.SkillBreak(isServer);
 
         var animator = Model.GetComponent<Animator>();
-        animator.SetBool("hurting", false);
-    }
-
-    public override void Process(bool isServer)
-    {
-        base.Process(isServer);
-        if (!manager.IsInStun)
-        {
-            manager.SkillCancel();
-        }
+        animator.SetBool("dead", false);
     }
 }

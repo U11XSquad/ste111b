@@ -628,6 +628,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000013447887644
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011376252370}
+  - 114: {fileID: 114000011493373176}
+  m_Layer: 8
+  m_Name: Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000013454573624
 GameObject:
   m_ObjectHideFlags: 1
@@ -838,7 +854,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!4 &4000010120424508
 Transform:
   m_ObjectHideFlags: 1
@@ -981,7 +997,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!4 &4000010737212170
 Transform:
   m_ObjectHideFlags: 1
@@ -1051,7 +1067,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!4 &4000011249273628
 Transform:
   m_ObjectHideFlags: 1
@@ -1093,6 +1109,19 @@ Transform:
   - {fileID: 4000013669875768}
   m_Father: {fileID: 4000013461712806}
   m_RootOrder: 0
+--- !u!4 &4000011376252370
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013447887644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000014092422392}
+  m_RootOrder: 4
 --- !u!4 &4000011469224862
 Transform:
   m_ObjectHideFlags: 1
@@ -1254,7 +1283,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &4000012448268208
 Transform:
   m_ObjectHideFlags: 1
@@ -1515,6 +1544,7 @@ Transform:
   - {fileID: 4000011530664754}
   - {fileID: 4000012675118440}
   - {fileID: 4000010737212170}
+  - {fileID: 4000011376252370}
   - {fileID: 4000012377459534}
   - {fileID: 4000011109747846}
   - {fileID: 4000010693548402}
@@ -1780,6 +1810,26 @@ MonoBehaviour:
   spCost: 0
   animationString: attack
   hitBox: {fileID: 1000013440649978, guid: fc81b6b3fa41849499ff0e927336e2ef, type: 2}
+--- !u!114 &114000011493373176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013447887644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabc26647a1826140a815c0c355cd6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  SkillNo: 0
+  AlwaysCheckInput: 0
+  InterruptPriority: 0
+  GenericInterruptable: 0
+  status: 0
+  phase: 0
+  manager: {fileID: 0}
+  skillType: 5
 --- !u!114 &114000011751921514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1791,9 +1841,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38167dfadcf8cb742ad657c7b81ecfbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 1000013660399000}
   standSkill: {fileID: 114000011083400994}
   blockSkill: {fileID: 114000013179185648}
   hurtSkill: {fileID: 114000012614885798}
+  deathSkill: {fileID: 114000011493373176}
 --- !u!114 &114000012614885798
 MonoBehaviour:
   m_ObjectHideFlags: 1

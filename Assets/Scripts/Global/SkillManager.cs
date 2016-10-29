@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class SkillManager : NetworkBehaviour
 {
+    [Tooltip("玩家模型对象")]
+    public GameObject model;
+
     /// <summary>
     /// 所有的技能
     /// </summary>
@@ -22,6 +25,10 @@ public class SkillManager : NetworkBehaviour
     /// 通常受伤
     /// </summary>
     public Skill hurtSkill;
+    /// <summary>
+    /// 通常死亡
+    /// </summary>
+    public Skill deathSkill;
 
     /// <summary>
     /// 当前施放的技能
@@ -37,6 +44,11 @@ public class SkillManager : NetworkBehaviour
     /// 硬直时间
     /// </summary>
     public float StunTime { get; set; }
+
+    /// <summary>
+    /// 客户端防抖
+    /// </summary>
+    public bool IsSkillReadyToStart { get; set; }
 
     /// <summary>
     /// 是否处于硬直中
@@ -75,7 +87,7 @@ public class SkillManager : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        foreach(Skill skill in skills)
+        foreach (Skill skill in skills)
         {
             skill.OnRegisterPrefab();
         }
@@ -85,6 +97,7 @@ public class SkillManager : NetworkBehaviour
     void Start()
     {
         ReturnToStand();
+        IsSkillReadyToStart = false;
     }
 
     // Update is called once per frame
@@ -115,6 +128,12 @@ public class SkillManager : NetworkBehaviour
         {
             StunTime -= Time.fixedDeltaTime;
             StunTime = Mathf.Max(StunTime, 0.0f);
+        }
+
+        //如果是死亡的话，不继续检测
+        if (current.SkillNo == deathSkill.SkillNo)
+        {
+            return;
         }
 
         //技能输入检测
@@ -149,7 +168,7 @@ public class SkillManager : NetworkBehaviour
             (current.phase == Skill.SkillPhase.Recovery ||
             current.status != Skill.SkillStatus.Active))
         {
-            CmdCast(NextSkill.SkillNo);
+            Cast(NextSkill.SkillNo);
             return;
         }
 
@@ -159,7 +178,7 @@ public class SkillManager : NetworkBehaviour
         {
             //无条件打断会破坏硬直
             StunTime = 0.0f;
-            CmdCast(NextSkill.SkillNo);
+            Cast(NextSkill.SkillNo);
             return;
         }
 
@@ -175,11 +194,25 @@ public class SkillManager : NetworkBehaviour
     }
 
     /// <summary>
+    /// <para>打断当前技能，施放新技能</para>
+    /// 相比于CmdCast多了客户端防抖技术
+    /// </summary>
+    /// <param name="skillNo">新技能编号</param>
+    public void Cast(int skillNo)
+    {
+        if (!IsSkillReadyToStart)
+        {
+            IsSkillReadyToStart = true;
+            CmdCast(skillNo);
+        }
+    }
+
+    /// <summary>
     /// 打断当前技能，施放新技能
     /// </summary>
     /// <param name="skillNo">新技能编号</param>
     [Command]
-    public void CmdCast(int skillNo)
+    void CmdCast(int skillNo)
     {
         RpcSkillStart(skillNo);
     }
@@ -193,6 +226,8 @@ public class SkillManager : NetworkBehaviour
         current.SkillStart(isServer);
         //撤销下一个技能
         NextSkill = null;
+        //防抖结束
+        IsSkillReadyToStart = false;
     }
 
     /// <summary>
@@ -205,7 +240,7 @@ public class SkillManager : NetworkBehaviour
     public void SkillCancel()
     {
         //一般取消直接用Stand取消
-        CmdCast(standSkill.SkillNo);
+        Cast(standSkill.SkillNo);
     }
 
     /// <summary>
@@ -220,7 +255,7 @@ public class SkillManager : NetworkBehaviour
             return;
         }
         //忽略style
-        CmdCast(hurtSkill.SkillNo);
+        Cast(hurtSkill.SkillNo);
     }
 
     /// <summary>
@@ -231,10 +266,40 @@ public class SkillManager : NetworkBehaviour
     /// <param name="style">受伤种类（未使用）</param>
     public void DamageReact(bool isBlocked, float stunTime, HitBox.HurtStyle style)
     {
+        //如果已经死亡，就不计算伤害
+        if (current.SkillNo == deathSkill.SkillNo)
+        {
+            return;
+        }
         this.StunTime = stunTime;
         if (!isBlocked)
         {
             EnterHurt(style);
         }
+    }
+
+    /// <summary>
+    /// 进入死亡状态
+    /// </summary>
+    public void EnterDeath()
+    {
+        this.StunTime = 0.0f;
+        //Command需要在权限方调用
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        Cast(deathSkill.SkillNo);
+    }
+
+    /// <summary>
+    /// <para>立即停止</para>
+    /// 强制中断当前技能，且动画无时间间隔立刻切换到站立。建议只在权限端调用。
+    /// </summary>
+    public void InstantBrake()
+    {
+        Cast(standSkill.SkillNo);
+        var animator = model.GetComponent<Animator>();
+        animator.SetTrigger("generalPause");
     }
 }

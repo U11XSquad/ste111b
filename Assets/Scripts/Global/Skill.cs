@@ -99,6 +99,17 @@ public class Skill : MonoBehaviour
     public SkillManager manager = null;
 
     /// <summary>
+    /// 返回人物模型
+    /// </summary>
+    public GameObject Model
+    {
+        get
+        {
+            return manager.model;
+        }
+    }
+
+    /// <summary>
     /// <para>技能作为防御方的种类</para>
     /// 参<see cref="BattlerGeneric.CalcHitStatus"/>
     /// </summary>
@@ -142,7 +153,7 @@ public class Skill : MonoBehaviour
     {
         //Player -> Skills -> Skill
         player = transform.parent.parent.gameObject;
-        if (!player.GetComponent<PlayerGeneric>())
+        if (!player.GetComponent<SkillManager>())
         {
             throw new MissingComponentException("Skill的对象结构和预期不符");
         }
