@@ -89,8 +89,23 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
+    Prototype.NetworkLobby.GameFormat gameFormat;
+    static public Prototype.NetworkLobby.GameFormat GameFormat
+    {
+        get
+        {
+            return Instance.gameFormat;
+        }
+        set
+        {
+            Instance.gameFormat = value;
+        }
+    }
+
     void Start()
     {
+        //获取赛制
+        gameFormat = FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().CurFormat;
         //创建玩家列表
         allPlayers = new List<NetworkIdentity>();
         //通知各个凭依创建玩家对象替换
@@ -226,6 +241,9 @@ public class TeamManager : NetworkBehaviour
 
     static public void OnPlayerDeath(PlayerGeneric deadPlayer, PlayerGeneric source)
     {
-        //TODO:时限限定用，改一次胜负用
+        if (GameFormat == Prototype.NetworkLobby.GameFormat.FirstDown)
+        {
+            Instance.remainTime = 0.0f;
+        }
     }
 }

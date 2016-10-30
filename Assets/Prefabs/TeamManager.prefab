@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf2b0dd59c33e846b0dd2e1ae8d5c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 10
+  totalTime: 100
   TimeBarPrefab: {fileID: 1000011278372614, guid: a634e9e1150d1f840af96ccb6bb44a82,
     type: 2}
   resultCarrierPrefab: {fileID: 114000012411579732, guid: 8ca89b7ef3a7e6b4e8e7aa1e58c8f5a1,

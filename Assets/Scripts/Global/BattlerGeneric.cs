@@ -161,6 +161,7 @@ public class BattlerGeneric : NetworkBehaviour
         OnDamage(damage);
         if (HP <= 0)
         {
+            HP = 0;
             OnDeath(source);
         }
         GetComponent<SkillManager>().DamageReact(isBlocked, stunTime, style);
