@@ -40,6 +40,9 @@ public class BattlerGeneric : NetworkBehaviour
     protected PlayerGeneric playerGeneric;
 
     protected bool isDead;
+    /// <summary>
+    /// 是否死亡
+    /// </summary>
     public bool IsDead
     {
         get
@@ -61,6 +64,20 @@ public class BattlerGeneric : NetworkBehaviour
         get
         {
             return playerGeneric == null || playerGeneric.LocalAuthority;
+        }
+    }
+
+    [SyncVar]
+    protected Vector3 spawnPoint;
+    public Vector3 SpawnPoint
+    {
+        get
+        {
+            return spawnPoint;
+        }
+        set
+        {
+            spawnPoint = value;
         }
     }
 
@@ -86,17 +103,10 @@ public class BattlerGeneric : NetworkBehaviour
     {
         //取消复活的准备
         CancelInvoke("Respawn");
-        //TODO:为了保证C/S处于同一平面内，需要手动调整位置
-        if (isLocalPlayer)
+        //调整位置
+        if (LocalAuthority)
         {
-            if (isServer)
-            {
-                transform.position = new Vector3(0f, 0f, 10.0f);
-            }
-            else
-            {
-                transform.position = new Vector3(0f, 0f, 0f);
-            }
+            transform.position = SpawnPoint;
         }
         HP = HPMax;
         isDead = false;

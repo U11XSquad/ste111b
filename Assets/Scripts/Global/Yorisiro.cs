@@ -71,6 +71,7 @@ public class Yorisiro : NetworkBehaviour
         var newp = (GameObject)Instantiate(chara, transform.position, transform.rotation);
         newp.GetComponent<PlayerGeneric>().PlayerIndex = playerIndex;
         newp.GetComponent<PlayerGeneric>().IsCpuPlayer = isCpuPlayer;
+        newp.GetComponent<BattlerGeneric>().SpawnPoint = SpawnPoints.at(playerIndex).position;
         NetworkServer.Spawn(newp);
         if (!isCpuPlayer)
         {

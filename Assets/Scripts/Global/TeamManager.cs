@@ -89,6 +89,7 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
+    [SyncVar]
     Prototype.NetworkLobby.GameFormat gameFormat;
     static public Prototype.NetworkLobby.GameFormat GameFormat
     {
@@ -105,7 +106,10 @@ public class TeamManager : NetworkBehaviour
     void Start()
     {
         //获取赛制
-        gameFormat = FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().CurFormat;
+        if (isServer)
+        {
+            gameFormat = FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().CurFormat;
+        }
         //创建玩家列表
         allPlayers = new List<NetworkIdentity>();
         //通知各个凭依创建玩家对象替换
