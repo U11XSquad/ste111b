@@ -61,6 +61,15 @@ public class SkillManager : NetworkBehaviour
         }
     }
 
+    public bool LocalAuthority
+    {
+        get
+        {
+            var bg = GetComponent<BattlerGeneric>();
+            return !bg || bg.LocalAuthority;
+        }
+    }
+
     /// <summary>
     /// 技能释放完或任何有必要的时候回站立状态，不需要服务器统一控制
     /// </summary>
@@ -112,7 +121,7 @@ public class SkillManager : NetworkBehaviour
         current.Process(isServer);
 
         //非本地玩家不进行检测、打断和取消
-        if (!isLocalPlayer)
+        if (!LocalAuthority)
         {
             return;
         }
@@ -250,7 +259,7 @@ public class SkillManager : NetworkBehaviour
     void EnterHurt(HitBox.HurtStyle style)
     {
         //Command需要在权限方调用
-        if (!isLocalPlayer)
+        if (!LocalAuthority)
         {
             return;
         }
@@ -285,7 +294,7 @@ public class SkillManager : NetworkBehaviour
     {
         this.StunTime = 0.0f;
         //Command需要在权限方调用
-        if (!isLocalPlayer)
+        if (!LocalAuthority)
         {
             return;
         }

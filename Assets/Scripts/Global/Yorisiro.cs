@@ -70,6 +70,7 @@ public class Yorisiro : NetworkBehaviour
 
         var newp = (GameObject)Instantiate(chara, transform.position, transform.rotation);
         newp.GetComponent<PlayerGeneric>().PlayerIndex = playerIndex;
+        newp.GetComponent<PlayerGeneric>().IsCpuPlayer = isCpuPlayer;
         NetworkServer.Spawn(newp);
         if (!isCpuPlayer)
         {
@@ -84,7 +85,7 @@ public class Yorisiro : NetworkBehaviour
     /// <remarks>注意Yorisiro创建的时候场景载入还没完成，因此无法在Update中执行</remarks>
     public void OnSceneGetReady()
     {
-        if (!isLocalPlayer && ! isCpuPlayer)
+        if (!isLocalPlayer && !(isCpuPlayer && isServer))
             return;
         CmdChangePlayer();
     }

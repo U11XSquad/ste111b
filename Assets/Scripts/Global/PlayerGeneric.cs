@@ -27,6 +27,31 @@ public class PlayerGeneric : NetworkBehaviour
         }
     }
 
+    [SyncVar]
+    protected bool isCpuPlayer;
+    /// <summary>
+    /// 是否是AI
+    /// </summary>
+    public bool IsCpuPlayer
+    {
+        get
+        {
+            return isCpuPlayer;
+        }
+        set
+        {
+            isCpuPlayer = value;
+        }
+    }
+
+    public bool LocalAuthority
+    {
+        get
+        {
+            return isLocalPlayer || (isCpuPlayer && isServer);
+        }
+    }
+
     public enum Occupation
     {
         /// <summary>

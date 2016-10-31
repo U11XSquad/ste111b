@@ -37,6 +37,8 @@ public class BattlerGeneric : NetworkBehaviour
     /// </summary>
     public event DamageEvent OnDamage;
 
+    protected PlayerGeneric playerGeneric;
+
     protected bool isDead;
     public bool IsDead
     {
@@ -46,9 +48,26 @@ public class BattlerGeneric : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// 是否拥有本地授权
+    /// </summary>
+    /// <remarks>包括：
+    /// 本地玩家控制单位；
+    /// 服务器端的AI玩家单位；
+    /// 召唤物（非玩家单位）
+    /// </remarks>
+    public bool LocalAuthority
+    {
+        get
+        {
+            return playerGeneric == null || playerGeneric.LocalAuthority;
+        }
+    }
+
     void Awake()
     {
         GetComponent<UIGeneric>().OnRegister += UIRegister;
+        playerGeneric = GetComponent<PlayerGeneric>();
     }
 
     void UIRegister(bool isLocal, UIRegister panel)
@@ -83,7 +102,7 @@ public class BattlerGeneric : NetworkBehaviour
         isDead = false;
         //如果是玩家，准备技能
         var sm = GetComponent<SkillManager>();
-        if (sm && isLocalPlayer)
+        if (sm && LocalAuthority)
         {
             sm.InstantBrake();
         }
