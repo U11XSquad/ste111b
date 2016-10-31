@@ -24,12 +24,21 @@ namespace Prototype.NetworkLobby
         public void OnClickHostTimeUp()
         {
             lobbyManager.CurFormat = GameFormat.TimeUp;
+            lobbyManager.maxPlayersPerConnection = 1;
             lobbyManager.StartHost();
         }
 
         public void OnClickHostFirstDown()
         {
             lobbyManager.CurFormat = GameFormat.FirstDown;
+            lobbyManager.maxPlayersPerConnection = 1;
+            lobbyManager.StartHost();
+        }
+
+        public void OnClickHostTraining()
+        {
+            lobbyManager.CurFormat = GameFormat.Training;
+            lobbyManager.maxPlayersPerConnection = 2;
             lobbyManager.StartHost();
         }
 

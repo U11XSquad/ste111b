@@ -18,7 +18,12 @@ namespace Prototype.NetworkLobby
         /// <summary>
         /// 首次击倒
         /// </summary>
-        FirstDown
+        FirstDown,
+
+        /// <summary>
+        /// 本机练习
+        /// </summary>
+        Training
     }
 
     public class LobbyManager : NetworkLobbyManager
@@ -70,6 +75,11 @@ namespace Prototype.NetworkLobby
         /// </summary>
         public GameFormat CurFormat { get; set; }
 
+        /// <summary>
+        /// 下一个创建的角色是否是CPU角色
+        /// </summary>
+        public bool CpuPlayer { get; set; }
+
         void Start()
         {
             s_Singleton = this;
@@ -82,6 +92,10 @@ namespace Prototype.NetworkLobby
             DontDestroyOnLoad(gameObject);
 
             SetServerInfo("Offline", "None");
+
+            CpuPlayer = false;
+            CurFormat = GameFormat.TimeUp;
+            maxPlayersPerConnection = 1;
         }
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
@@ -185,6 +199,11 @@ namespace Prototype.NetworkLobby
 
         public void AddLocalPlayer()
         {
+            //本机模式下，增加一个新的CPU
+            if (CurFormat == GameFormat.Training)
+            {
+                CpuPlayer = true;
+            }
             TryToAddPlayer();
         }
 

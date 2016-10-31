@@ -131,7 +131,7 @@ public class TeamManager : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (isServer)
+        if (isServer && gameFormat != Prototype.NetworkLobby.GameFormat.Training)
         {
             remainTime -= Time.fixedDeltaTime;
         }

@@ -8,6 +8,13 @@ public class TimeBar : MonoBehaviour
     void OnGUI()
     {
         var text = GetComponent<Text>();
-        text.text = string.Format("{0}", Mathf.CeilToInt(TeamManager.RemainTime));
+        if (TeamManager.GameFormat == Prototype.NetworkLobby.GameFormat.Training)
+        {
+            text.text = "∞";
+        }
+        else
+        {
+            text.text = string.Format("{0}", Mathf.CeilToInt(TeamManager.RemainTime));
+        }
     }
 }

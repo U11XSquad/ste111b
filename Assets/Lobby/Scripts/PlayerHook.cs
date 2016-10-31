@@ -12,6 +12,7 @@ namespace Prototype.NetworkLobby
 
             gp.CharacterName = CharacterManager.Avatars[lp.characterNo].avatarName;
             gp.PlayerIndex = lp.playerIndex;
+            gp.IsCpuPlayer = lp.IsCpuPlayer;
         }
     }
 }

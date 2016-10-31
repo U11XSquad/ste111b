@@ -47,22 +47,37 @@ namespace Prototype.NetworkLobby
         //static Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         //static Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
+        /// <summary>
+        /// 是否是AI
+        /// </summary>
+        public bool IsCpuPlayer { get; set; }
+
         public override void OnClientEnterLobby()
         {
             base.OnClientEnterLobby();
 
-            if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(1);
+            var lobbyManager = LobbyManager.s_Singleton;
+            if (lobbyManager != null) lobbyManager.OnPlayersNumberModified(1);
 
             LobbyPlayerList._instance.AddPlayer(this);
-            LobbyPlayerList._instance.DisplayDirectServerWarning(isServer && LobbyManager.s_Singleton.matchMaker == null);
+            LobbyPlayerList._instance.DisplayDirectServerWarning(isServer && lobbyManager.matchMaker == null);
 
             SetupCharacterDrop();
+
+            IsCpuPlayer = false;
             if (isLocalPlayer)
             {
                 SetupLocalPlayer();
+                //这里应该是无法进入的
+                //SetupLocalPlayer在StartAuthority中再次调用
             }
             else
             {
+                if (lobbyManager.CpuPlayer)
+                {
+                    IsCpuPlayer = true;
+                    lobbyManager.CpuPlayer = false;
+                }
                 SetupOtherPlayer();
             }
 
@@ -159,14 +174,18 @@ namespace Prototype.NetworkLobby
         //This enable/disable the remove button depending on if that is the only local player or not
         public void CheckRemoveButton()
         {
-            if (!isLocalPlayer)
-                return;
-
             int localPlayerCount = 0;
             foreach (PlayerController p in ClientScene.localPlayers)
                 localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
-            removePlayerButton.interactable = localPlayerCount > 1;
+            //主机方的第一个本机玩家isLocalPlayer==false
+            if (!isServer || localPlayerCount != 1)
+            {
+                if (!isLocalPlayer)
+                    return;
+            }
+
+            removePlayerButton.interactable = localPlayerCount > 1 && IsCpuPlayer;
         }
 
         public override void OnClientReady(bool readyState)

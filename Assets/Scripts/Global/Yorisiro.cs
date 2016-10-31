@@ -7,6 +7,9 @@ public class Yorisiro : NetworkBehaviour
 {
     [SyncVar]
     protected int playerIndex;
+    /// <summary>
+    /// 角色的编号
+    /// </summary>
     public int PlayerIndex
     {
         get
@@ -21,6 +24,9 @@ public class Yorisiro : NetworkBehaviour
 
     [SyncVar]
     protected string characterName;
+    /// <summary>
+    /// 角色的识别用名
+    /// </summary>
     public string CharacterName
     {
         get
@@ -30,6 +36,23 @@ public class Yorisiro : NetworkBehaviour
         set
         {
             characterName = value;
+        }
+    }
+
+    [SyncVar]
+    protected bool isCpuPlayer = false;
+    /// <summary>
+    /// 是否是AI玩家
+    /// </summary>
+    public bool IsCpuPlayer
+    {
+        get
+        {
+            return isCpuPlayer;
+        }
+        set
+        {
+            isCpuPlayer = value;
         }
     }
 
@@ -48,7 +71,10 @@ public class Yorisiro : NetworkBehaviour
         var newp = (GameObject)Instantiate(chara, transform.position, transform.rotation);
         newp.GetComponent<PlayerGeneric>().PlayerIndex = playerIndex;
         NetworkServer.Spawn(newp);
-        NetworkServer.ReplacePlayerForConnection(conn, newp, 0);
+        if (!isCpuPlayer)
+        {
+            NetworkServer.ReplacePlayerForConnection(conn, newp, 0);
+        }
         Destroy(gameObject);
     }
 
@@ -58,7 +84,7 @@ public class Yorisiro : NetworkBehaviour
     /// <remarks>注意Yorisiro创建的时候场景载入还没完成，因此无法在Update中执行</remarks>
     public void OnSceneGetReady()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer && ! isCpuPlayer)
             return;
         CmdChangePlayer();
     }
