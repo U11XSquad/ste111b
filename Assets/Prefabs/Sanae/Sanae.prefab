@@ -44,6 +44,7 @@ GameObject:
   - 114: {fileID: 114000012909488720}
   - 114: {fileID: 114000010619827606}
   - 114: {fileID: 114000010212337138}
+  - 114: {fileID: 114000012368539584}
   m_Layer: 8
   m_Name: Sanae
   m_TagString: Untagged
@@ -1582,7 +1583,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!95 &95000012531450224
 Animator:
@@ -1846,6 +1847,18 @@ MonoBehaviour:
   blockSkill: {fileID: 114000013179185648}
   hurtSkill: {fileID: 114000012614885798}
   deathSkill: {fileID: 114000011493373176}
+--- !u!114 &114000012368539584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010195342392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3e74c852451744dbe4e1c9b82d7645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundFric: 50
 --- !u!114 &114000012614885798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1878,6 +1891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HPMax: 10000
+  respawnTime: 3
   hpbar: {fileID: 1000012612569240, guid: 87cf2f73772c6784a9cc277d3013260c, type: 2}
 --- !u!114 &114000013179185648
 MonoBehaviour:
@@ -1912,7 +1926,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatarName: sanae
   model: {fileID: 1000013660399000}
-  groundFric: 50
 --- !u!114 &114000014014813490
 MonoBehaviour:
   m_ObjectHideFlags: 1

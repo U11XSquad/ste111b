@@ -48,7 +48,7 @@ public class BlockSkill : Skill
         if (input.IsMoving)
         {
             //转向
-            playerGeneric.FaceTo(input.Move);
+            playerGeneric.GetComponent<MovingGeneric>().FaceTo(input.Move);
         }
         if (!input.BlockHold)
         {
