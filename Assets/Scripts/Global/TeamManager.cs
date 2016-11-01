@@ -114,10 +114,7 @@ public class TeamManager : NetworkBehaviour
         allPlayers = new List<NetworkIdentity>();
         //通知各个凭依创建玩家对象替换
         var yorisiros = FindObjectsOfType<Yorisiro>();
-        foreach (var yorisiro in yorisiros)
-        {
-            yorisiro.OnSceneGetReady();
-        }
+        System.Array.ForEach(yorisiros, yorisiro => yorisiro.OnSceneGetReady());
         //UI注册标志
         uiRegistered = false;
         //开启计时器

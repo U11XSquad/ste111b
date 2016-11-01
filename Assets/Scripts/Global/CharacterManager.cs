@@ -38,9 +38,6 @@ public class CharacterManager : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        foreach (var avatar in avatars)
-        {
-            ClientScene.RegisterPrefab(avatar.gameObject);
-        }
+        System.Array.ForEach(avatars, avatar => ClientScene.RegisterPrefab(avatar.gameObject));
     }
 }

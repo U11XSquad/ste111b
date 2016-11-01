@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class InputCtrl : NetworkBehaviour
 {
@@ -32,7 +33,7 @@ public abstract class InputCtrl : NetworkBehaviour
         public KeyEvent e;
         public int frame;
     }
-    protected LinkedList<KeyRec> keyRec;
+    protected MyLinkedList<KeyRec> keyRec;
     Dictionary<KeyName, bool> keyIsDown;
     int currentFrame;
     KeyName preDir;
@@ -136,7 +137,7 @@ public abstract class InputCtrl : NetworkBehaviour
 
     protected virtual void Awake()
     {
-        keyRec = new LinkedList<KeyRec>();
+        keyRec = new MyLinkedList<KeyRec>();
         keyIsDown = new Dictionary<KeyName, bool>();
 
         keyIsDown[KeyName.L] = false;
@@ -289,15 +290,9 @@ public abstract class InputCtrl : NetworkBehaviour
         }
         var dir = ReverseDir(preDir);
         int cnt = Mathf.CeilToInt(time / Time.fixedDeltaTime);
-        foreach (var rec in keyRec)
-        {
-            if (rec.name == dir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt)
-            {
-                return true;
-            }
-        }
 
-        return false;
+        return keyRec.Any(rec =>
+            rec.name == dir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt);
     }
 
     public bool Test360(float time)
@@ -334,13 +329,7 @@ public abstract class InputCtrl : NetworkBehaviour
         if (!dirDown)
             return false;
         int cnt = Mathf.CeilToInt(0.1f / Time.fixedDeltaTime);
-        foreach (var rec in keyRec)
-        {
-            if (rec.name == preDir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt)
-            {
-                return true;
-            }
-        }
-        return false;
+        return keyRec.Any(rec =>
+            rec.name == preDir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt);
     }
 }

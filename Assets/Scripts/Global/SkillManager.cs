@@ -96,10 +96,7 @@ public class SkillManager : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        foreach (Skill skill in skills)
-        {
-            skill.OnRegisterPrefab();
-        }
+        System.Array.ForEach(skills, skill => skill.OnRegisterPrefab());
     }
 
     // Use this for initialization

@@ -15,6 +15,9 @@ public class SimpleHitBox : HitBox
     [Tooltip("命中吹飞")]
     public float hurtBlow;
 
+    [Tooltip("命中吹飞时间")]
+    public float hurtBlowTime = 0.1f;
+
     [Tooltip("命中SP增益")]
     public float hurtSpGain;
 
@@ -26,6 +29,9 @@ public class SimpleHitBox : HitBox
 
     [Tooltip("格挡吹飞")]
     public float blockBlow;
+
+    [Tooltip("格挡吹飞时间")]
+    public float blockBlowTime = 0.1f;
 
     [Tooltip("格挡SP增益")]
     public float blockSpGain;
@@ -44,11 +50,12 @@ public class SimpleHitBox : HitBox
         var opponent = target.GetComponent<BattlerGeneric>();
         var dist = GetHitDir(target);
         var sp = this.player.GetComponent<SPGeneric>();
+        var mg = target.GetComponent<MovingGeneric>();
 
         if (isBlocked)
         {
             opponent.DealDamage(isBlocked, blockDamage, blockStun, hurtStyle, player.GetComponent<PlayerGeneric>());
-            target.GetComponent<Rigidbody>().AddForce(dist * blockBlow);
+            mg.AddDisplace(dist * blockBlow, blockBlowTime);
             if (sp)
             {
                 sp.SP += blockSpGain;
@@ -57,7 +64,7 @@ public class SimpleHitBox : HitBox
         else
         {
             opponent.DealDamage(isBlocked, hurtDamage, hurtStun, hurtStyle, player.GetComponent<PlayerGeneric>());
-            target.GetComponent<Rigidbody>().AddForce(dist * hurtBlow);
+            mg.AddDisplace(dist * hurtBlow, hurtBlowTime);
             if (sp)
             {
                 sp.SP += hurtSpGain;

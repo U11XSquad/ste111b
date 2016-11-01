@@ -3,11 +3,10 @@ using System.Collections;
 
 public class MoveSkill : Skill
 {
-    [Tooltip("最大移速，单位m/s^2")]
+    [Tooltip("移动速度，单位m/s")]
     public float MoveSpeed = 5.0f;
 
-    [Tooltip("最大主动加速度，单位m/s^2")]
-    public float MaxAccelerate = 60.0f;
+    Vector3 preMovSpd;
 
     public override bool InputDetermine()
     {
@@ -21,6 +20,13 @@ public class MoveSkill : Skill
 
         var animator = Model.GetComponent<Animator>();
         animator.SetBool("walking", true);
+
+        //创建初始的移动
+        var movSpd = input.Move;
+        preMovSpd = input.Move;
+        movSpd.Normalize();
+        movSpd *= MoveSpeed;
+        player.GetComponent<MovingGeneric>().AddDisplaceBySpeed(movSpd, Mathf.Infinity, this);
     }
 
     public override void SkillBreak(bool isServer)
@@ -29,13 +35,15 @@ public class MoveSkill : Skill
 
         var animator = Model.GetComponent<Animator>();
         animator.SetBool("walking", false);
+
+        //删除移动
+        player.GetComponent<MovingGeneric>().RemoveDisplace(this);
+
     }
 
     public override void Process(bool isServer)
     {
         base.Process(isServer);
-
-        //TODO:改出PlayerGeneric
 
         var playerGeneric = player.GetComponent<PlayerGeneric>();
         if (!playerGeneric.isLocalPlayer)
@@ -48,27 +56,20 @@ public class MoveSkill : Skill
             //转向
             playerGeneric.GetComponent<MovingGeneric>().FaceTo(input.Move);
             //移动
-            DealMove();
+            var movSpd = input.Move;
+            if (movSpd != preMovSpd)
+            {
+                //换向则更改
+                player.GetComponent<MovingGeneric>().RemoveDisplace(this);
+                movSpd.Normalize();
+                movSpd *= MoveSpeed;
+                player.GetComponent<MovingGeneric>().AddDisplaceBySpeed(movSpd, Mathf.Infinity, this);
+                preMovSpd = movSpd;
+            }
         }
         else
         {
             manager.SkillCancel();
         }
-    }
-
-    void DealMove()
-    {
-        var rigid = player.GetComponent<Rigidbody>();
-        var velocity = rigid.velocity;
-        var moveDir = input.Move;
-        moveDir.Normalize();
-        moveDir = moveDir * MoveSpeed;
-        var velDiff = moveDir - velocity;
-        var accLength = velDiff.magnitude;
-        var maxAcc = MaxAccelerate * Time.fixedDeltaTime;
-        accLength = Mathf.Clamp(accLength, -maxAcc, maxAcc);
-        velDiff.Normalize();
-        velDiff *= accLength;
-        rigid.AddForce(velDiff, ForceMode.VelocityChange);
     }
 }
