@@ -8,15 +8,15 @@ public abstract class InputCtrl : NetworkBehaviour
 {
     public enum KeyName
     {
-        K1,
-        K2,
-        K3,
-        K4,
-        K5,
-        K6,
-        K7,
-        K8,
-        K9,
+        K1 = 0,
+        K2 = 1,
+        K3 = 2,
+        K4 = 3,
+        K5 = 4,
+        K6 = 5,
+        K7 = 6,
+        K8 = 7,
+        K9 = 8,
         L,
         N,
         H,
@@ -249,6 +249,58 @@ public abstract class InputCtrl : NetworkBehaviour
         }
     }
 
+    //逆时针下一顺位
+    KeyName GetNextDir(KeyName x)
+    {
+        switch (x)
+        {
+            case KeyName.K1:
+                return KeyName.K2;
+            case KeyName.K2:
+                return KeyName.K3;
+            case KeyName.K3:
+                return KeyName.K6;
+            case KeyName.K6:
+                return KeyName.K9;
+            case KeyName.K9:
+                return KeyName.K8;
+            case KeyName.K8:
+                return KeyName.K7;
+            case KeyName.K7:
+                return KeyName.K4;
+            case KeyName.K4:
+                return KeyName.K1;
+            default:
+                return KeyName.K5;
+        }
+    }
+
+    //顺时针下一顺位
+    KeyName GetPrevDir(KeyName x)
+    {
+        switch (x)
+        {
+            case KeyName.K1:
+                return KeyName.K4;
+            case KeyName.K4:
+                return KeyName.K7;
+            case KeyName.K7:
+                return KeyName.K8;
+            case KeyName.K8:
+                return KeyName.K9;
+            case KeyName.K9:
+                return KeyName.K6;
+            case KeyName.K6:
+                return KeyName.K3;
+            case KeyName.K3:
+                return KeyName.K2;
+            case KeyName.K2:
+                return KeyName.K1;
+            default:
+                return KeyName.K5;
+        }
+    }
+
     protected void RecordKey()
     {
         //增加帧
@@ -295,33 +347,111 @@ public abstract class InputCtrl : NetworkBehaviour
             rec.name == dir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt);
     }
 
+    //序列索引比较器
+
     public bool Test360(float time)
     {
-        bool f2 = false, f4 = false, f6 = false, f8 = false;
-        int cnt = Mathf.CeilToInt(time / Time.fixedDeltaTime);
-        foreach (var rec in keyRec)
+        //键值表及其计算
+        int[] keyValTab = new int[9];
+        System.Action<KeyName, bool> CalcValTab = (origin, ccw) =>
         {
-            if (rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt)
+            var x = origin;
+            var i = 0;
+            do
             {
-                if (rec.name == KeyName.K2)
+                keyValTab[(int)x] = i;
+                i++;
+                if (ccw)
+                    x = GetNextDir(x);
+                else
+                    x = GetPrevDir(x);
+            } while (x != origin);
+        };
+
+        //计数
+        int cnt = Mathf.CeilToInt(time / Time.fixedDeltaTime);
+
+        //寻找最后的方向
+        var it = keyRec.Last;
+        while (it != null && it.Value.frame >= currentFrame - cnt && it.Value.e != KeyEvent.Down)
+        {
+            it = it.Previous;
+        }
+        if (it == null || it.Value.frame < currentFrame - cnt)
+            return false;
+        var last = it;
+
+        //键值序列及其构造
+        System.Func<bool, List<int>> GenSequence = ccw =>
+        {
+            List<int> ret = new List<int>();
+            CalcValTab(last.Value.name, ccw);
+            it = last;
+            ret.Add(-1); //首先增加一个起始元素-1
+            while (it != null && it.Value.frame >= currentFrame - cnt)
+            {
+                if (it.Value.e == KeyEvent.Down)
                 {
-                    f2 = true;
+                    ret.Add(keyValTab[(int)it.Value.name]);
                 }
-                else if (rec.name == KeyName.K4)
+                it = it.Previous;
+            }
+            return ret;
+        };
+
+        //求LIS序列
+        System.Func<List<int>, List<int>> GetLIS = seq =>
+        {
+            MyComparison<int> cmp = new MyComparison<int>((x, y) => seq[x] - seq[y]);
+            //定长最小值索引序列
+            List<int> indOfMinVal = new List<int>();
+            int[] pre = new int[seq.Count];
+            //起始元素-1
+            seq[0] = pre[0] = -1;
+            indOfMinVal.Add(0);
+            //二分获得LIS长度
+            for (int i = 1; i < seq.Count; i++)
+            {
+                int idx = indOfMinVal.BinarySearch(i, cmp);
+                if (idx < 0)
                 {
-                    f4 = true;
+                    idx = -idx - 1;
                 }
-                else if (rec.name == KeyName.K6)
+                pre[i] = indOfMinVal[idx - 1];
+                if (idx == indOfMinVal.Count)
                 {
-                    f6 = true;
+                    indOfMinVal.Add(i);
                 }
-                else if (rec.name == KeyName.K8)
+                else
                 {
-                    f8 = true;
+                    indOfMinVal[idx] = i;
                 }
             }
-        }
-        return f2 && f4 && f6 && f8;
+            //倒退得到序列（不包括开头的-1）
+            List<int> ret = new List<int>();
+            for (int i = indOfMinVal[indOfMinVal.Count - 1]; i > 0; i = pre[i])
+            {
+                ret.Add(seq[i]);
+            }
+            ret.Reverse();
+            return ret;
+        };
+
+        //检查LIS序列是否复合条件
+        System.Func<List<int>, bool> CheckLIS = seq =>
+        {
+            if (seq.Count < 4 || seq[seq.Count - 1] - seq[0] < 6)
+                return false;
+            for (int i = 1; i < seq.Count; i++)
+            {
+                if (seq[i] - seq[i - 1] > 3)
+                    return false;
+            }
+            return true;
+        };
+
+        return CheckLIS(GetLIS(GenSequence(true))) 
+            || CheckLIS(GetLIS(GenSequence(false)));
     }
 
     public bool TestDash()

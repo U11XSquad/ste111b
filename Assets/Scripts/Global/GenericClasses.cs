@@ -25,3 +25,18 @@ public class MyLinkedList<T> : LinkedList<T>
         }
     }
 }
+
+public class MyComparison<T> : IComparer<T>
+{
+    Comparison<T> cmpFunc;
+
+    public MyComparison(Comparison<T> cmpFunc)
+    {
+        this.cmpFunc = cmpFunc;
+    }
+
+    public int Compare(T lhs, T rhs)
+    {
+        return cmpFunc(lhs, rhs);
+    }
+}
