@@ -12,8 +12,18 @@ public class ShortDash : Skill
     [Tooltip("移动时间，单位s")]
     public float MoveTime = 0.3f;
 
+    [Tooltip("动画字符串")]
+    public string animationString = "walking";
+
+    protected override void Start()
+    {
+        base.Start();
+        player.GetComponent<MovingGeneric>().ColliEvents += this.OnCollide;
+    }
+
     public override bool InputDetermine()
     {
+        //HINT:这个条件可能会有一段时间被多次判定成立，不过并不认为这会造成bug
         return input.TestDash(inputInterval);
     }
 
@@ -23,7 +33,7 @@ public class ShortDash : Skill
         phase = SkillPhase.Recovery;
 
         var animator = Model.GetComponent<Animator>();
-        animator.SetBool("walking", true);
+        animator.SetBool(animationString, true);
 
         //转向
         player.GetComponent<MovingGeneric>().FaceTo(input.Move);
@@ -42,14 +52,24 @@ public class ShortDash : Skill
         base.SkillBreak(isServer);
 
         var animator = Model.GetComponent<Animator>();
-        animator.SetBool("walking", false);
+        animator.SetBool(animationString, false);
 
         //删除移动（如果有的话）
         player.GetComponent<MovingGeneric>().RemoveDisplace(this);
+
+        //取消Invoke
+        CancelInvoke();
     }
 
     void DoEnd()
     {
+        manager.SkillCancel();
+    }
+
+    void OnCollide(Collision collisionInfo)
+    {
+        //撞东西后停止
+        CancelInvoke();
         manager.SkillCancel();
     }
 }
