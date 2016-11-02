@@ -218,6 +218,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000011350825114
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012341761802}
+  - 114: {fileID: 114000011327024464}
+  m_Layer: 8
+  m_Name: Dash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000011492164406
 GameObject:
   m_ObjectHideFlags: 1
@@ -855,7 +871,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!4 &4000010120424508
 Transform:
   m_ObjectHideFlags: 1
@@ -998,7 +1014,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!4 &4000010737212170
 Transform:
   m_ObjectHideFlags: 1
@@ -1011,7 +1027,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &4000010849042570
 Transform:
   m_ObjectHideFlags: 1
@@ -1068,7 +1084,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!4 &4000011249273628
 Transform:
   m_ObjectHideFlags: 1
@@ -1122,7 +1138,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &4000011469224862
 Transform:
   m_ObjectHideFlags: 1
@@ -1272,6 +1288,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011270248236}
   m_RootOrder: 0
+--- !u!4 &4000012341761802
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011350825114}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000014092422392}
+  m_RootOrder: 2
 --- !u!4 &4000012377459534
 Transform:
   m_ObjectHideFlags: 1
@@ -1284,7 +1313,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!4 &4000012448268208
 Transform:
   m_ObjectHideFlags: 1
@@ -1364,7 +1393,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014092422392}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &4000012695431010
 Transform:
   m_ObjectHideFlags: 1
@@ -1543,6 +1572,7 @@ Transform:
   m_Children:
   - {fileID: 4000010378306900}
   - {fileID: 4000011530664754}
+  - {fileID: 4000012341761802}
   - {fileID: 4000012675118440}
   - {fileID: 4000010737212170}
   - {fileID: 4000011376252370}
@@ -1623,7 +1653,6 @@ MonoBehaviour:
   manager: {fileID: 0}
   skillType: 0
   MoveSpeed: 5
-  MaxAccelerate: 60
 --- !u!114 &114000010163377330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1782,6 +1811,30 @@ MonoBehaviour:
   spellSkill: {fileID: 114000014014813490}
   lastTime: 60
   seClip: {fileID: 8300000, guid: bf5de3e4ab4a4904cb0d2ceeb382a5d8, type: 3}
+--- !u!114 &114000011327024464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011350825114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc40b1e32301fcd46938056f7804cb22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  SkillNo: 0
+  AlwaysCheckInput: 0
+  InterruptPriority: 15
+  GenericInterruptable: 1
+  status: 1
+  phase: 0
+  manager: {fileID: 0}
+  skillType: 0
+  inputInterval: 0.1
+  MoveSpeed: 10
+  MoveTime: 0.1
+  EndingSpeedCoe: 0.6
 --- !u!114 &114000011473580410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1858,6 +1911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3e74c852451744dbe4e1c9b82d7645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxAccelerate: 60
+  MaxSpeed: 40
   groundFric: 50
 --- !u!114 &114000012614885798
 MonoBehaviour:

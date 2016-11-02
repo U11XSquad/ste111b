@@ -54,7 +54,7 @@ public class MoveSkill : Skill
         if (input.IsMoving)
         {
             //转向
-            playerGeneric.GetComponent<MovingGeneric>().FaceTo(input.Move);
+            player.GetComponent<MovingGeneric>().FaceTo(input.Move);
             //移动
             var movSpd = input.Move;
             if (movSpd != preMovSpd)

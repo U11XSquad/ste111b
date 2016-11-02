@@ -450,16 +450,16 @@ public abstract class InputCtrl : NetworkBehaviour
             return true;
         };
 
-        return CheckLIS(GetLIS(GenSequence(true))) 
+        return CheckLIS(GetLIS(GenSequence(true)))
             || CheckLIS(GetLIS(GenSequence(false)));
     }
 
-    public bool TestDash()
+    public bool TestDash(float time)
     {
         if (!dirDown)
             return false;
-        int cnt = Mathf.CeilToInt(0.1f / Time.fixedDeltaTime);
-        return keyRec.Any(rec =>
-            rec.name == preDir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt);
+        int cnt = Mathf.CeilToInt(time / Time.fixedDeltaTime);
+        return keyRec.Count(rec => 
+            rec.name == preDir && rec.e == KeyEvent.Down && rec.frame >= currentFrame - cnt) >= 2;
     }
 }
