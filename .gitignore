@@ -31,4 +31,4 @@ sysinfo.txt
 *.unitypackage
 
 *.exe
-ste111b_Data/
+*_Data/

@@ -151,6 +151,7 @@ public class BattlerGeneric : NetworkBehaviour
             //如果命中，向全体客户端发送结果
             if (isHit)
             {
+                hitBox.ProtectTime = true;
                 RpcTriggerHit(hitBox.GetComponent<NetworkIdentity>(), isBlocked);
             }
         }
@@ -160,6 +161,8 @@ public class BattlerGeneric : NetworkBehaviour
     void RpcTriggerHit(NetworkIdentity hitBoxId, bool isBlocked)
     {
         HitBox hitBox = hitBoxId.GetComponent<HitBox>();
+        if (isServer)
+            hitBox.ProtectTime = false;
         var manager = GetComponent<SkillManager>();
         bool isHit = true;
         //然后如果防御成功，计算防御效果

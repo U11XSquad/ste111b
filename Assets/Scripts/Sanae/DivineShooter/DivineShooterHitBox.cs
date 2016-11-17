@@ -19,7 +19,7 @@ public class DivineShooterHitBox : HitBox
         var opponent = target.GetComponent<BattlerGeneric>();
         opponent.DealDamage(isBlocked, 1000, 1.0f, HurtStyle.LightHurt, player.GetComponent<PlayerGeneric>());
 
-        var dist = GetHitDir(target);;
+        var dist = GetHitDir(target); ;
         //target.GetComponent<Rigidbody>().AddForce(dist * 150.0f);
         target.GetComponent<MovingGeneric>().AddDisplace(dist * 1.5f, 0.1f);
 
@@ -29,6 +29,6 @@ public class DivineShooterHitBox : HitBox
             sp.SP += 50.0f;
         }
 
-        Destroy(gameObject);
+        KillSelf();
     }
 }

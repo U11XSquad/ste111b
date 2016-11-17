@@ -35,6 +35,16 @@ public class HitBox : NetworkBehaviour
     }
 
     /// <summary>
+    /// 保护期
+    /// </summary>
+    public bool ProtectTime { get; set; }
+
+    /// <summary>
+    /// 当下一次可能的时候删除对象
+    /// </summary>
+    protected bool DestroyWhenPossible { get; set; }
+
+    /// <summary>
     /// 技能作为攻击方的种类
     /// 一般和防御方种类是一致的
     /// </summary>
@@ -72,6 +82,8 @@ public class HitBox : NetworkBehaviour
     void Awake()
     {
         maskList = new List<NetworkIdentity>();
+        ProtectTime = false;
+        DestroyWhenPossible = false;
     }
 
     protected virtual void Start()
@@ -85,9 +97,9 @@ public class HitBox : NetworkBehaviour
         Invoke("KillSelf", lifeTime);
     }
 
-    void KillSelf()
+    protected void KillSelf()
     {
-        Destroy(gameObject);
+        DestroyWhenPossible = true;
     }
 
     /// <summary>
@@ -169,8 +181,9 @@ public class HitBox : NetworkBehaviour
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
-            //默认层的是障碍物，直接删除对象
-            Destroy(gameObject);
+            //默认层的是障碍物，如果是服务器，则直接删除对象
+            if(isServer)
+                DestroyWhenPossible = true;
         }
     }
 
@@ -180,5 +193,11 @@ public class HitBox : NetworkBehaviour
         ret.y = 0.0f; //消除身高的补正
         ret.Normalize();
         return ret;
+    }
+
+    protected virtual void Update()
+    {
+        if (isServer && DestroyWhenPossible && !ProtectTime)
+            Destroy(gameObject);
     }
 }

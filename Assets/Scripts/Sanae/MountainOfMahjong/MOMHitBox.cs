@@ -41,5 +41,7 @@ public class MOMHitBox : HitBox
             opponent.DealDamage(isBlocked, 1500, 0.5f, hurtStyle, player.GetComponent<PlayerGeneric>());
             target.GetComponent<MovingGeneric>().AddDisplace(dist * 5.0f, 0.5f);
         }
+
+        KillSelf();
     }
 }
