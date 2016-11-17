@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
@@ -9,19 +9,20 @@ using System.Collections;
 
 namespace Prototype.NetworkLobby
 {
-    public enum GameFormat{
+    public enum GameFormat
+    {
         /// <summary>
-        /// Ê±¼ä½áÊøÎªÖ¹
+        /// æ—¶é—´ç»“æŸä¸ºæ­¢
         /// </summary>
         TimeUp,
 
         /// <summary>
-        /// Ê×´Î»÷µ¹
+        /// é¦–æ¬¡å‡»å€’
         /// </summary>
         FirstDown,
 
         /// <summary>
-        /// ±¾»úÁ·Ï°
+        /// æœ¬æœºç»ƒä¹ 
         /// </summary>
         Training
     }
@@ -71,12 +72,12 @@ namespace Prototype.NetworkLobby
         protected LobbyHook _lobbyHooks;
 
         /// <summary>
-        /// µ±Ç°Ñ¡ÔñµÄÈüÖÆ
+        /// å½“å‰é€‰æ‹©çš„èµ›åˆ¶
         /// </summary>
         public GameFormat CurFormat { get; set; }
 
         /// <summary>
-        /// ÏÂÒ»¸ö´´½¨µÄ½ÇÉ«ÊÇ·ñÊÇCPU½ÇÉ«
+        /// ä¸‹ä¸€ä¸ªåˆ›å»ºçš„è§’è‰²æ˜¯å¦æ˜¯CPUè§’è‰²
         /// </summary>
         public bool CpuPlayer { get; set; }
 
@@ -91,7 +92,7 @@ namespace Prototype.NetworkLobby
 
             DontDestroyOnLoad(gameObject);
 
-            SetServerInfo("Offline", "None");
+            SetServerInfo("ç¦»çº¿", "æ— ");
 
             CpuPlayer = false;
             CurFormat = GameFormat.TimeUp;
@@ -169,7 +170,7 @@ namespace Prototype.NetworkLobby
             else
             {
                 backButton.gameObject.SetActive(false);
-                SetServerInfo("Offline", "None");
+                SetServerInfo("ç¦»çº¿", "æ— ");
                 _isMatchmaking = false;
             }
         }
@@ -177,7 +178,7 @@ namespace Prototype.NetworkLobby
         public void DisplayIsConnecting()
         {
             var _this = this;
-            infoPanel.Display("Connecting...", "Cancel", () => { _this.backDelegate(); });
+            infoPanel.Display("è¿çº¿ä¸­â€¦â€¦", "åˆ‡æ–­", () => { _this.backDelegate(); });
         }
 
         public void SetServerInfo(string status, string host)
@@ -199,7 +200,7 @@ namespace Prototype.NetworkLobby
 
         public void AddLocalPlayer()
         {
-            //±¾»úÄ£Ê½ÏÂ£¬Ôö¼ÓÒ»¸öĞÂµÄCPU
+            //æœ¬æœºæ¨¡å¼ä¸‹ï¼Œå¢åŠ ä¸€ä¸ªæ–°çš„CPU
             if (CurFormat == GameFormat.Training)
             {
                 CpuPlayer = true;
@@ -262,7 +263,7 @@ namespace Prototype.NetworkLobby
 
         public void KickedMessageHandler(NetworkMessage netMsg)
         {
-            infoPanel.Display("Kicked by Server", "Close", null);
+            infoPanel.Display("å·²è¢«ä¼ºæœå™¨ç§»é™¤", "å…³é—­", null);
             netMsg.conn.Disconnect();
         }
 
@@ -281,7 +282,7 @@ namespace Prototype.NetworkLobby
                 localIp = GetIP();
             }
 
-            SetServerInfo("Hosting", localIp);
+            SetServerInfo("ä¸»æœº", localIp);
         }
 
         public override void OnMatchCreate(bool success, string extendedInfo, MatchInfo matchInfo)
@@ -444,7 +445,7 @@ namespace Prototype.NetworkLobby
             {//only to do on pure client (not self hosting client)
                 ChangeTo(lobbyPanel);
                 backDelegate = StopClientClbk;
-                SetServerInfo("Client", networkAddress);
+                SetServerInfo("å®¢æˆ·æœº", networkAddress);
             }
         }
 
@@ -458,7 +459,7 @@ namespace Prototype.NetworkLobby
         public override void OnClientError(NetworkConnection conn, int errorCode)
         {
             ChangeTo(mainMenuPanel);
-            infoPanel.Display("Cient error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
+            infoPanel.Display("å®¢æˆ·æœºé”™è¯¯ï¼š" + (errorCode == 6 ? "è¶…æ—¶" : errorCode.ToString()), "å…³é—­", null);
         }
 
         static string GetIP()

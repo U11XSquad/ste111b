@@ -589,7 +589,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: NETWORK LOBBY EXAMPLE
+  m_Text: STE111B
 --- !u!114 &11403610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -622,7 +622,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: 'Status:'
+  m_Text: "\u8FDE\u7EBF\u72B6\u51B5\uFF1A"
 --- !u!114 &11403930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1037,7 +1037,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: MANUAL CONNECTION
+  m_Text: "\u52A0\u5165\u5BF9\u5C40"
 --- !u!114 &11440648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1102,7 +1102,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: 'Host:'
+  m_Text: "\u4E3B\u673A\u4F4D\u5740\uFF1A"
 --- !u!114 &11447366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1407,7 +1407,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: JOIN A GAME
+  m_Text: "\u4E3B\u673A\u4F4D\u5740"
 --- !u!114 &11471648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2285,7 +2285,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1000, y: -343}
+  m_AnchoredPosition: {x: -1000, y: -193}
   m_SizeDelta: {x: 176, y: 52}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &22418156
@@ -2303,7 +2303,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 115, y: -296}
+  m_AnchoredPosition: {x: 115, y: -146}
   m_SizeDelta: {x: -231.40002, y: 27}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &22418284
@@ -2345,8 +2345,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 509, y: -44}
-  m_SizeDelta: {x: 84, y: 24}
+  m_AnchoredPosition: {x: 445.7, y: -44}
+  m_SizeDelta: {x: 150, y: 24}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &22424006
 RectTransform:
@@ -2456,8 +2456,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 115.5, y: -44}
-  m_SizeDelta: {x: 105, y: 24}
+  m_AnchoredPosition: {x: 72.5, y: -44}
+  m_SizeDelta: {x: 150, y: 24}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &22442340
 RectTransform:
@@ -2636,7 +2636,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 113.5, y: -341}
+  m_AnchoredPosition: {x: 113.5, y: -191}
   m_SizeDelta: {x: -1133.5, y: 55}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &22474222
@@ -3131,7 +3131,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: CONNECTING...
+  m_Text: "\u8FDE\u7EBF\u4E2D\u2026\u2026"
 --- !u!114 &114000011209773878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3276,7 +3276,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CANCEL
+  m_Text: "\u5207\u65AD"
 --- !u!114 &114000012212075364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3320,7 +3320,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BACK
+  m_Text: "\u540E\u9000"
 --- !u!114 &114000012964314772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3353,7 +3353,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: CONNECTING...
+  m_Text: "\u8FDE\u7EBF\u4E2D\u2026\u2026"
 --- !u!114 &114000013033131796
 MonoBehaviour:
   m_ObjectHideFlags: 1

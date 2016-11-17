@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -52,7 +52,7 @@ namespace Prototype.NetworkLobby
             lobbyManager.backDelegate = lobbyManager.StopClientClbk;
             lobbyManager.DisplayIsConnecting();
 
-            lobbyManager.SetServerInfo("Connecting...", lobbyManager.networkAddress);
+            lobbyManager.SetServerInfo("连线中……", lobbyManager.networkAddress);
         }
 
         void onEndEditIP(string text)

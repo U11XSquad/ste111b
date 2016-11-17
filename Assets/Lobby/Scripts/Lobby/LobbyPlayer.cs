@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
@@ -39,7 +39,7 @@ namespace Prototype.NetworkLobby
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
-        static Color JoinColor = new Color(255.0f/255.0f, 0.0f, 101.0f/255.0f,1.0f);
+        static Color JoinColor = new Color(255.0f / 255.0f, 0.0f, 101.0f / 255.0f, 1.0f);
         static Color NotReadyColor = new Color(34.0f / 255.0f, 44 / 255.0f, 55.0f / 255.0f, 1.0f);
         static Color ReadyColor = new Color(0.0f, 204.0f / 255.0f, 204.0f / 255.0f, 1.0f);
         static Color TransparentColor = new Color(0, 0, 0, 0);
@@ -48,7 +48,7 @@ namespace Prototype.NetworkLobby
         //static Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
         /// <summary>
-        ///  «∑Ò «AI
+        /// ÊòØÂê¶ÊòØAI
         /// </summary>
         public bool IsCpuPlayer { get; set; }
 
@@ -68,8 +68,8 @@ namespace Prototype.NetworkLobby
             if (isLocalPlayer)
             {
                 SetupLocalPlayer();
-                //’‚¿Ô”¶∏√ «Œﬁ∑®Ω¯»Îµƒ
-                //SetupLocalPlayer‘⁄StartAuthority÷–‘Ÿ¥Œµ˜”√
+                //ËøôÈáåÂ∫îËØ•ÊòØÊó†Ê≥ïËøõÂÖ•ÁöÑ
+                //SetupLocalPlayerÂú®StartAuthority‰∏≠ÂÜçÊ¨°Ë∞ÉÁî®
             }
             else
             {
@@ -95,7 +95,7 @@ namespace Prototype.NetworkLobby
             //if we return from a game, color of text can still be the one for "Ready"
             readyButton.transform.GetChild(0).GetComponent<Text>().color = Color.white;
 
-           SetupLocalPlayer();
+            SetupLocalPlayer();
         }
 
         void ChangeReadyButtonColor(Color c)
@@ -142,12 +142,12 @@ namespace Prototype.NetworkLobby
 
             ChangeReadyButtonColor(JoinColor);
 
-            readyButton.transform.GetChild(0).GetComponent<Text>().text = "JOIN";
+            readyButton.transform.GetChild(0).GetComponent<Text>().text = "ÂáÜÂ§á";
             readyButton.interactable = true;
 
             //have to use child count of player prefab already setup as "this.slot" is not set yet
             if (playerName == "")
-                CmdNameChanged("Player" + (LobbyPlayerList._instance.playerListContentTransform.childCount-1));
+                CmdNameChanged("Player" + (LobbyPlayerList._instance.playerListContentTransform.childCount - 1));
 
             //we switch from simple name display to name input
             colorButton.interactable = true;
@@ -178,7 +178,7 @@ namespace Prototype.NetworkLobby
             foreach (PlayerController p in ClientScene.localPlayers)
                 localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
-            //÷˜ª˙∑Ωµƒµ⁄“ª∏ˆ±æª˙ÕÊº“isLocalPlayer==false
+            //‰∏ªÊú∫ÊñπÁöÑÁ¨¨‰∏Ä‰∏™Êú¨Êú∫Áé©ÂÆ∂isLocalPlayer==false
             if (!isServer || localPlayerCount != 1)
             {
                 if (!isLocalPlayer)
@@ -195,7 +195,7 @@ namespace Prototype.NetworkLobby
                 ChangeReadyButtonColor(TransparentColor);
 
                 Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
-                textComponent.text = "READY";
+                textComponent.text = "ÂáÜÂ§áÂ•Ω";
                 textComponent.color = ReadyColor;
                 readyButton.interactable = false;
                 colorButton.interactable = false;
@@ -207,7 +207,7 @@ namespace Prototype.NetworkLobby
                 ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
 
                 Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
-                textComponent.text = isLocalPlayer ? "JOIN" : "...";
+                textComponent.text = isLocalPlayer ? "ÂáÜÂ§á" : "...";
                 textComponent.color = Color.white;
                 readyButton.interactable = isLocalPlayer;
                 colorButton.interactable = isLocalPlayer;
@@ -217,7 +217,7 @@ namespace Prototype.NetworkLobby
         }
 
         public void OnPlayerListChanged(int idx)
-        { 
+        {
             GetComponent<Image>().color = (idx % 2 == 0) ? EvenRowColor : OddRowColor;
 
             playerIndex = idx;
@@ -275,7 +275,7 @@ namespace Prototype.NetworkLobby
             }
             else if (isServer)
                 LobbyManager.s_Singleton.KickPlayer(connectionToClient);
-                
+
         }
 
         public void ToggleJoinButton(bool enabled)
@@ -287,7 +287,7 @@ namespace Prototype.NetworkLobby
         [ClientRpc]
         public void RpcUpdateCountdown(int countdown)
         {
-            LobbyManager.s_Singleton.countdownPanel.UIText.text = "Match Starting in " + countdown;
+            LobbyManager.s_Singleton.countdownPanel.UIText.text = "ÊØîËµõÂºÄÂßã‰∫é " + countdown;
             LobbyManager.s_Singleton.countdownPanel.gameObject.SetActive(countdown != 0);
         }
 
