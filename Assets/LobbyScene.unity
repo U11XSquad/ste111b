@@ -100,7 +100,7 @@ Prefab:
     - target: {fileID: 114000010941708160, guid: 7af700217c49fe24eb7aee5e4e723319,
         type: 2}
       propertyPath: avatars.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4000014175221342, guid: 7af700217c49fe24eb7aee5e4e723319, type: 2}
       propertyPath: m_LocalPosition.x
@@ -213,13 +213,19 @@ Prefab:
         type: 2}
       propertyPath: avatars.Array.data[1]
       value: 
-      objectReference: {fileID: 114000013197972722, guid: 99a7f243888b1914a91086baa258cd92,
+      objectReference: {fileID: 114000013633236238, guid: ab41ec319943f0f4dbe8da6b82d75be3,
         type: 2}
     - target: {fileID: 114000010941708160, guid: 7af700217c49fe24eb7aee5e4e723319,
         type: 2}
       propertyPath: avatars.Array.data[0]
       value: 
-      objectReference: {fileID: 114000013633236238, guid: ab41ec319943f0f4dbe8da6b82d75be3,
+      objectReference: {fileID: 114000013873789416, guid: 65c14b8a8fdf6fd42ae21f766cdd0566,
+        type: 2}
+    - target: {fileID: 114000010941708160, guid: 7af700217c49fe24eb7aee5e4e723319,
+        type: 2}
+      propertyPath: avatars.Array.data[2]
+      value: 
+      objectReference: {fileID: 114000013197972722, guid: 99a7f243888b1914a91086baa258cd92,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7af700217c49fe24eb7aee5e4e723319, type: 2}
