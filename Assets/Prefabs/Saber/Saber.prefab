@@ -1041,22 +1041,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000014065302028
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000013178573850}
-  - 114: {fileID: 114000010634109216}
-  m_Layer: 8
-  m_Name: OmniDecl
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000014108823640
 GameObject:
   m_ObjectHideFlags: 1
@@ -1847,19 +1831,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000013232403784}
   m_RootOrder: 2
---- !u!4 &4000013178573850
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014065302028}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000013276909078}
-  m_RootOrder: 12
 --- !u!4 &4000013232403784
 Transform:
   m_ObjectHideFlags: 1
@@ -1910,7 +1881,6 @@ Transform:
   - {fileID: 4000012365905444}
   - {fileID: 4000010671451998}
   - {fileID: 4000011121088046}
-  - {fileID: 4000013178573850}
   m_Father: {fileID: 4000013730496852}
   m_RootOrder: 1
 --- !u!4 &4000013296298110
@@ -2256,35 +2226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b677d1a9efcb11446bca9e1cc8046863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000010634109216
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014065302028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c229c750042ef4f897803954803d5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillName: 
-  SkillNo: 0
-  AlwaysCheckInput: 0
-  InterruptPriority: 40
-  GenericInterruptable: 0
-  status: 1
-  phase: 0
-  manager: {fileID: 0}
-  skillType: 0
-  startupTime: 1
-  recoveryTime: 1
-  keyName: 360S
-  inputInterval: 0.3
-  spCost: 10
-  animationString: blocking
-  spellSkill: {fileID: 114000014132017410}
-  lastTime: 60
-  seClip: {fileID: 8300000, guid: bf5de3e4ab4a4904cb0d2ceeb382a5d8, type: 3}
 --- !u!114 &114000010661645812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2333,15 +2274,15 @@ MonoBehaviour:
   skillName: 
   SkillNo: 0
   AlwaysCheckInput: 0
-  InterruptPriority: 10
+  InterruptPriority: 21
   GenericInterruptable: 1
   status: 1
   phase: 0
   manager: {fileID: 0}
   skillType: 1
-  startupTime: 0.5
-  activeTime: 0.3
-  recoveryTime: 0.2
+  startupTime: 0.3
+  activeTime: 0.2
+  recoveryTime: 0.3
   hitBoxDist: 1.3
   keyName: N
   inputInterval: 0.1
@@ -2373,13 +2314,13 @@ MonoBehaviour:
   skillName: 
   SkillNo: 0
   AlwaysCheckInput: 0
-  InterruptPriority: 20
+  InterruptPriority: 23
   GenericInterruptable: 1
   status: 1
   phase: 0
   manager: {fileID: 0}
   skillType: 0
-  startupTime: 0.05
+  startupTime: 0
   activeTime: 0.5
   recoveryTime: 0.05
   keyName: 46N
@@ -2443,7 +2384,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011942426644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ff7be82f947bc488952211f156a1db, type: 3}
+  m_Script: {fileID: 11500000, guid: fc40b1e32301fcd46938056f7804cb22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
@@ -2456,10 +2397,9 @@ MonoBehaviour:
   manager: {fileID: 0}
   skillType: 0
   inputInterval: 0.1
-  MoveDistance: 5
-  MoveTime: 0.08
-  PrepareDistance: 0.8
-  animationString: move
+  MoveSpeed: 10
+  MoveTime: 0.1
+  EndingSpeedCoe: 0.6
 --- !u!114 &114000011981355644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2528,14 +2468,14 @@ MonoBehaviour:
   skillName: 
   SkillNo: 0
   AlwaysCheckInput: 0
-  InterruptPriority: 11
+  InterruptPriority: 22
   GenericInterruptable: 1
   status: 1
   phase: 0
   manager: {fileID: 0}
   skillType: 1
-  startupTime: 2
-  activeTime: 0.3
+  startupTime: 0.3
+  activeTime: 0.2
   recoveryTime: 0.3
   hitBoxDist: 1.3
   keyName: H
@@ -2557,15 +2497,15 @@ MonoBehaviour:
   skillName: 
   SkillNo: 0
   AlwaysCheckInput: 0
-  InterruptPriority: 9
+  InterruptPriority: 20
   GenericInterruptable: 1
   status: 1
   phase: 0
   manager: {fileID: 0}
   skillType: 1
-  startupTime: 0.5
+  startupTime: 0.4
   activeTime: 0.3
-  recoveryTime: 0.1
+  recoveryTime: 0.3
   hitBoxDist: 1.3
   keyName: L
   inputInterval: 0.1
@@ -2632,20 +2572,20 @@ MonoBehaviour:
   skillName: 
   SkillNo: 0
   AlwaysCheckInput: 0
-  InterruptPriority: 20
+  InterruptPriority: 22
   GenericInterruptable: 1
   status: 1
   phase: 0
   manager: {fileID: 0}
   skillType: 0
-  startupTime: 0.6
+  startupTime: 0.3
   activeTime: 0.2
-  recoveryTime: 0.2
+  recoveryTime: 0.1
   hitBoxDist: 1
   keyName: 6H
   inputInterval: 0.5
   spCost: 0
-  animationString: hack
+  animationString: JumpHack
   hitBox: {fileID: 1000013776385064, guid: 388b2aa6dbed7524aa79f1dc617b1bb7, type: 2}
 --- !u!114 &114000014045549612
 MonoBehaviour:
@@ -2692,12 +2632,13 @@ MonoBehaviour:
   secondAttackTime: 0.5
   thirdAttackTime: 0.5
   recoveryTime: 0.1
+  spCost: 0
   hitBoxDist: 1
-  firstHitBox: {fileID: 1000013182459644, guid: 709110fa19a148542862782b40f2ee79,
+  firstHitBox: {fileID: 1000012236807684, guid: 269dd8ba285d2f24e8b630647f48c83e,
     type: 2}
-  secondHitBox: {fileID: 1000013073215014, guid: 82b6b0592438a3843b9e53e6f471ac7f,
+  secondHitBox: {fileID: 1000012236807684, guid: 269dd8ba285d2f24e8b630647f48c83e,
     type: 2}
-  thirdHitBox: {fileID: 1000013776385064, guid: 388b2aa6dbed7524aa79f1dc617b1bb7,
+  thirdHitBox: {fileID: 1000012236807684, guid: 269dd8ba285d2f24e8b630647f48c83e,
     type: 2}
 --- !u!136 &136000012226506294
 CapsuleCollider:
