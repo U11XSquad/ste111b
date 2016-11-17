@@ -1048,7 +1048,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012060675772}
-  - 114: {fileID: 114000012682740184}
+  - 114: {fileID: 114000011744777056}
   m_Layer: 8
   m_Name: Dash
   m_TagString: Untagged
@@ -2589,6 +2589,31 @@ MonoBehaviour:
   HPMax: 10000
   respawnTime: 3
   hpbar: {fileID: 1000012612569240, guid: 87cf2f73772c6784a9cc277d3013260c, type: 2}
+--- !u!114 &114000011744777056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013428015438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ff7be82f947bc488952211f156a1db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  SkillNo: 0
+  AlwaysCheckInput: 0
+  InterruptPriority: 15
+  GenericInterruptable: 1
+  status: 1
+  phase: 0
+  manager: {fileID: 0}
+  skillType: 0
+  inputInterval: 0.1
+  MoveDistance: 5
+  MoveTime: 0.08
+  PrepareDistance: 0.8
+  animationString: walking
 --- !u!114 &114000012091309104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2655,30 +2680,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1000013740085120, guid: 3a4eb78049fb1904797ea9ecc165f617,
     type: 2}
   bulletLifeTime: 5
---- !u!114 &114000012682740184
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013428015438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc40b1e32301fcd46938056f7804cb22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillName: 
-  SkillNo: 0
-  AlwaysCheckInput: 0
-  InterruptPriority: 15
-  GenericInterruptable: 1
-  status: 1
-  phase: 0
-  manager: {fileID: 0}
-  skillType: 0
-  inputInterval: 0.1
-  MoveSpeed: 10
-  MoveTime: 0.1
-  EndingSpeedCoe: 0.6
 --- !u!114 &114000012727934512
 MonoBehaviour:
   m_ObjectHideFlags: 1

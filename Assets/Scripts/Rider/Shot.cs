@@ -71,7 +71,7 @@ public class Shot : Skill
         if (server)
         {
             var pos = player.transform.position + player.transform.forward * 2.0f;
-            var rotation = Quaternion.AngleAxis(player.transform.rotation.y - 20, Vector3.up);
+            var rotation = Quaternion.AngleAxis(player.transform.rotation.eulerAngles.y - 20, Vector3.up);
             var bullet = HitBox.Create(bulletPrefab, pos, rotation, this, 100.0f);
             //注：此处不可设置Rigidbody受力，应在HitBox的Start中设定
             //同样此处只有SyncVar会得到传播
@@ -100,7 +100,7 @@ public class Shot : Skill
         if (server)
         {
             var pos = player.transform.position + player.transform.forward * 2.0f;
-            var rotation = Quaternion.AngleAxis(player.transform.rotation.y + 20, Vector3.up);
+            var rotation = Quaternion.AngleAxis(player.transform.rotation.eulerAngles.y + 20, Vector3.up);
             var bullet = HitBox.Create(bulletPrefab, pos, rotation, this, 100.0f);
             //注：此处不可设置Rigidbody受力，应在HitBox的Start中设定
             //同样此处只有SyncVar会得到传播

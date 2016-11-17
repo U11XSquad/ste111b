@@ -36,6 +36,9 @@ public class SimpleHitBox : HitBox
     [Tooltip("格挡SP增益")]
     public float blockSpGain;
 
+    [Tooltip("命中后是否销毁")]
+    public bool DestroyOnHit = false;
+
     protected override void Start()
     {
         base.Start();
@@ -70,5 +73,8 @@ public class SimpleHitBox : HitBox
                 sp.SP += hurtSpGain;
             }
         }
+
+        if (DestroyOnHit)
+            KillSelf();
     }
 }

@@ -121,6 +121,7 @@ MonoBehaviour:
   blockBlow: 0.5
   blockBlowTime: 0.1
   blockSpGain: 5
+  DestroyOnHit: 1
 --- !u!114 &114000013139870784
 MonoBehaviour:
   m_ObjectHideFlags: 1

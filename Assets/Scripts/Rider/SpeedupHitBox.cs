@@ -83,6 +83,6 @@ public class SpeedupHitBox : HitBox
             }
         }
 
-        Destroy(gameObject);        
+        KillSelf();
     }
 }
