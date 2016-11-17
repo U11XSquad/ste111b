@@ -58,8 +58,8 @@ public class JumpHack : Skill
         base.SkillStart(isServer);
         server = isServer;
 
-        //移动速度是move的1.5倍
-        player.GetComponent<MovingGeneric>().AddDisplaceBySpeed(player.transform.forward * 12, startupTime, this);
+        //移动速度是move的2倍
+        player.GetComponent<MovingGeneric>().AddDisplaceBySpeed(player.transform.forward * 16, startupTime, this);
         Invoke("DoActive", startupTime);
 
         var animator = Model.GetComponent<Animator>();

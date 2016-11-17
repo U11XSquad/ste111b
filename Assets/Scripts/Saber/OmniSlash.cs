@@ -19,6 +19,9 @@ public class OmniSlash : Skill
     [Tooltip("动作回复时间")]
     public float recoveryTime = 0.1f;
 
+    [Tooltip("SP消耗")]
+    public float spCost = 0.0f;
+
     [Tooltip("判定盒在人物身前的距离")]
     public float hitBoxDist = 1.0f;
 
@@ -42,6 +45,23 @@ public class OmniSlash : Skill
 
     public override bool InputDetermine()
     {
+        //检测SP消耗
+        var spgeneric = player.GetComponent<SPGeneric>();
+        if (spCost > 0.5f)
+        {
+            if (!spgeneric || spgeneric.InSpell || spgeneric.SP < spCost)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (!spgeneric || spgeneric.SP < spCost)
+            {
+                return false;
+            }
+        }
+
         return input.STrigger;
     }
 
@@ -51,6 +71,7 @@ public class OmniSlash : Skill
         server = isServer;
         Invoke("FirstAttack", startupTime);
 
+        player.GetComponent<SPGeneric>().SpellEnd();
         var animator = Model.GetComponent<Animator>();
         animator.SetBool("spell", true);
     }
@@ -71,7 +92,7 @@ public class OmniSlash : Skill
         animator.SetBool("spell", false);
         animator.SetBool("slash", true);
         player.GetComponent<MovingGeneric>().AddDisplaceBySpeed(player.transform.forward * 16, firstAttackTime, this);
-        Invoke("SecondAttack", firstAttackTime);  
+        Invoke("SecondAttack", firstAttackTime);
     }
 
     protected void SecondAttack()
@@ -87,7 +108,7 @@ public class OmniSlash : Skill
         animator.SetBool("slash", false);
         animator.SetBool("poke", true);
         player.GetComponent<MovingGeneric>().AddDisplaceBySpeed(player.transform.forward * 16, secondAttackTime, this);
-        Invoke("ThirdAttack", secondAttackTime);  
+        Invoke("ThirdAttack", secondAttackTime);
     }
 
     protected void ThirdAttack()
@@ -103,7 +124,7 @@ public class OmniSlash : Skill
         animator.SetBool("poke", false);
         animator.SetBool("hack", true);
         player.GetComponent<MovingGeneric>().AddDisplaceBySpeed(player.transform.forward * 16, thirdAttackTime, this);
-        Invoke("DoRecover", thirdAttackTime); 
+        Invoke("DoRecover", thirdAttackTime);
     }
 
     protected virtual void DoRecover()
@@ -122,7 +143,8 @@ public class OmniSlash : Skill
     protected virtual void DoEnd()
     {
         phase = SkillPhase.None;
-        status = SkillStatus.Inactive;
+        status = SkillStatus.Disable;
+
         var animator = Model.GetComponent<Animator>();
         animator.SetBool("hack", false);
     }
