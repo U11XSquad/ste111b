@@ -53,7 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatars:
-  - {fileID: 114000013197972722, guid: 99a7f243888b1914a91086baa258cd92, type: 2}
+  - {fileID: 114000013873789416, guid: 65c14b8a8fdf6fd42ae21f766cdd0566, type: 2}
+  - {fileID: 114000013633236238, guid: ab41ec319943f0f4dbe8da6b82d75be3, type: 2}
 --- !u!114 &114000012168084846
 MonoBehaviour:
   m_ObjectHideFlags: 1
